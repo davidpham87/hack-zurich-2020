@@ -1,0 +1,109 @@
+(ns app.views
+  (:require
+   ["@material-ui/core/CssBaseline" :default mui-css-baseline]
+   ["@material-ui/core/IconButton" :default mui-icon-button]
+   ["@material-ui/icons/AccountCircle" :default ic-account-circle]
+   ["@material-ui/icons/Help" :default ic-help]
+   ["@material-ui/icons/Settings" :default ic-settings]
+   ["@material-ui/styles/ThemeProvider" :default mui-theme-provider]
+   ["react" :as react]
+   [cuerdas.core]
+   [re-frame.core :as rf :refer (subscribe dispatch)]
+   [reagent.core :as reagent]
+   [app.components.drawer :refer (drawer)]
+   [app.components.mui-utils :refer (custom-theme)]
+   [transparency.components.app-bar]
+   [transparency.components.code-splitting :refer (lazy-component)]
+   [transparency.components.drawer]
+   [transparency.components.errors :refer (error-boundary)]
+   [transparency.components.feedback :as tcf :refer (snackbar)]
+   [transparency.components.reitit :as tcr]
+   [transparency.components.screen-size :as tcs]))
+
+(defn home-view []
+  [:div {:style {:color :blue}} "Hello!!"])
+
+(defn viz-view []
+  [:div {:style {:color :white}} "Viz"])
+
+(defn home-route []
+  [""
+   ["/" {:name ::home
+         :view home-view
+         :link-text "Home"}]
+   ["/scorecards-modelling"
+    {:name ::visualization
+     :view viz-view
+     :link-text "Visualization"}]
+   ["/account"
+    {:name ::account
+     :view home-view
+     :link-text "Account"}]
+   ["/settings"
+    {:name ::settings
+     :view home-view
+     :link-text "Settings"}]])
+
+(def routes
+  ["" (home-route)])
+
+(defn app-bar []
+  (let [nav-button (fn [path icon]
+                     [:> mui-icon-button
+                      {:size :small :on-click #(rf/dispatch [::tcr/navigate path])}
+                      [:> icon]])
+        nav-link (fn [url icon]
+                   [:> mui-icon-button
+                    {:size :small :on-click #(.open js/window url "_blank")}
+                    [:> icon]])]
+    [:div {:style {:margin-bottom 64 :z-index 1201}}
+     [:> transparency.components.app-bar/app-bar
+      {:breakpoint :sm
+       :buttons
+       (reagent/as-element
+        [:<>
+         [nav-button ::settings ic-settings]
+         [nav-button ::account ic-account-circle]
+         [nav-link "https://google.ch" ic-help]])
+       :menu
+       (reagent/as-element
+        [:<>
+         [transparency.components.drawer/menu-button]
+         [:div {:style {:color :black}} "Hack Zürich 2020"]
+         ])}]]))
+
+(defonce main-ref (reagent/atom nil))
+
+(defn app []
+  (let [current-route (subscribe [:current-route])
+        screen-size   (subscribe [::tcs/screen-size])]
+    (fn []
+      (let [current-route-name (get-in @current-route [:data :name])]
+        [:div
+         [:> mui-css-baseline]
+         [:> mui-theme-provider {:theme custom-theme}
+          [:div {:style {:display "flex" :height "100vh" :width "100%"}}
+           [drawer :app.views]
+           [:main {:ref       #(reset! main-ref %)
+                   :style     {:flex-grow           1
+                               :padding             (case @screen-size :xs 0 20)
+                               :overflow            :auto
+                               :min-height          "100vh"
+                               :background-position :center
+                               :background-size     :cover
+                               :background-color    :black
+                               :z-index             1201
+                               :width               "100%"}}
+            [:div {:style (cond-> {:height "90%"}
+                            (and (= current-route-name :home)
+                                 (not (#{:xs :sm} @screen-size))) (merge {:overflow :hidden}))}
+             [app-bar]
+             [snackbar :default]
+             (when (-> @current-route :data :name)
+               [:> react/Suspense
+                {:fallback (reagent/as-element
+                            [:div {:style {:height "100vh" :color :white}} "Loading"])}
+                [:div {:style {:margin-bottom 10}}
+                 [(error-boundary [[:scorecards-modelling.events/initialize-db]])
+                       [(get-in @current-route [:data :view] home-view) current-route-name
+                        (-> @current-route :data :link-text)]]]])]]]]]))))

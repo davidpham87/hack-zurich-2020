@@ -1,0 +1,49 @@
+;; shadow-cljs configuration
+{:deps {:aliases [:cljs]}
+
+ :nrepl {:port 3333
+         :middleware [refactor-nrepl.middleware/wrap-refactor]}
+
+ :dev-http {8080 "public"}
+ :builds
+ {:app
+
+  {:target :browser
+   :asset-path "js"
+   :module-loader true
+
+   :modules
+   {:shared {:entries []}
+    :main {:init-fn app.core/main
+           ;; :entries [scorecards-modelling.specs]
+           :preloads [day8.re-frame-10x.preload]
+           :depends-on #{:shared}}}
+
+   :closure-defines {}
+
+   :dev
+   {:output-dir "public/js"
+    :compiler-options
+    {:closure-warnings {:global-this :off}
+     :closure-defines
+     {re-frame.trace.trace-enabled? true
+      "re_frame.trace.trace_enabled_QMARK_" true
+      "day8.re_frame.tracing.trace_enabled_QMARK_" true}}}
+
+   :release
+   {:output-dir "output/app/js"
+    :compiler-options
+    {:output-feature-set :es6
+     :infer-externs :auto
+     :optimizations :advanced
+     :externs ["externs/material-ui.ext.js"
+               "datascript/externs.js"]}}
+
+   :devtools
+   {:browser-inject :main
+    :autoload true
+    :loader-mode :eval
+    :repl-pprint true
+    :http-root "public"
+    :preloads [shadow.remote.runtime.cljs.browser
+               devtools.preload]}}}}

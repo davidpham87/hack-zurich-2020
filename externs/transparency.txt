@@ -1,0 +1,1 @@
+/home/david/Documents/transparency/frontend/externs/app.txt
