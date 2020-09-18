@@ -68,9 +68,7 @@
        :menu
        (reagent/as-element
         [:<>
-         [transparency.components.drawer/menu-button]
-         [:div {:style {:color :black}} "Hack Zürich 2020"]
-         ])}]]))
+         [transparency.components.drawer/menu-button]])}]]))
 
 (defonce main-ref (reagent/atom nil))
 
