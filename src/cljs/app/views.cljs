@@ -15,6 +15,7 @@
    [app.home.core]
    [app.login.core]
    [app.survey.core]
+   [app.team.core]
    [cuerdas.core]
    [re-frame.core :as rf :refer (subscribe dispatch)]
    [reagent.core :as reagent]
@@ -44,14 +45,14 @@
    ["/survey"
     {:name ::survey
      :view app.survey.core/root
-     :link-text "Analytics"}]
+     :link-text "Survey"}]
    ["/achievements"
     {:name ::achievements
      :view app.achievements.core/root
      :link-text "Achievements"}]
    ["/team-members"
     {:name ::team-members
-     :view app.achievements.core/root
+     :view app.team.core/root
      :link-text "Team Members"}]
    ["/account"
     {:name ::account

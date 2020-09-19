@@ -37,9 +37,12 @@
     [:> mui-grid {:item true :xs 12 :md 8}
      [card-header
       {:title (reagent/as-element
-               [:div "Tell "
-                [:b "Jasper "]
-                "about your last call"])}]]
+               [:<>
+                [:div "Tell "
+                 [:b "Jasper "]
+                 "about your last call"]
+                [:> mui-grid {:container true :justify :center}
+                 [:img {:src "img/jasper_image.png"}]]])}]]
     [:> mui-grid {:item true :xs 12 :md 8}
      [card {:header {:title "How was the mood of the call overall?"
                      :subheader "Did you spend a good time?"}

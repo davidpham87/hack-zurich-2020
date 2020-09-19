@@ -48,7 +48,7 @@
      [std-item [ic-home "Home"] (keyword ns :home)]
      [std-item [ic-account-tree "Analytics"] (keyword ns :analytics)]
      [std-item [ic-eco "Survey"] (keyword ns :survey)]
-     [std-item [ic-star "Achievement"] (keyword ns :achievements)]
+     [std-item [ic-star "Achievements"] (keyword ns :achievements)]
      [std-item [ic-group "Team Members"] (keyword ns :team-members)]
      #_[std-item [ic-settings "Settings"] (keyword ns :settings)]]))
 
