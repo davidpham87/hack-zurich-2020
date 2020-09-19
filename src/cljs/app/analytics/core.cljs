@@ -39,7 +39,9 @@
     :choices
     [{:label "Speak time" :value :speak-time}
      {:label "Interaction" :value :interaction}
-     {:label "Emotions" :value :emotions}]
+     {:label "Emotions" :value :emotions}
+     {:label "Reactions" :value :reactions}
+     {:label "Ratings" :value :ratings}]
     :style card-tab-style}])
 
 (defn random [n]

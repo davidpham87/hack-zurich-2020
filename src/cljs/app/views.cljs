@@ -58,7 +58,7 @@
     {:name ::account
      :view app.login.core/root-panel
      :link-text "Account"}]
-   ["/settings"
+   #_["/settings"
     {:name ::settings
      :view home-view
      :link-text "Settings"}]])
@@ -81,7 +81,7 @@
        :buttons
        (reagent/as-element
         [:<>
-         [nav-button ::settings ic-settings]
+         #_[nav-button ::settings ic-settings]
          [nav-button ::account ic-account-circle]
          [nav-link "https://google.ch" ic-help]])
        :menu

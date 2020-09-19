@@ -9,9 +9,6 @@
     :refer (indicator-chart score->color)]
    [transparency.components.charts.line :refer (line-chart-raw)]))
 
-;; (defn standardize-counts [x]
-;;   (-> (+ x 12) (/ 24)))
-
 (defn indicators []
   (let [data (repeatedly 5 #(rand-int 100))
         plot-colors (mapv #(-> (* / % 100) score->color) data)
@@ -62,7 +59,8 @@
   [:> mui-grid {:container true :style {:padding 20} :spacing 2
                 :align-items :stretch}
    [:> mui-grid {:item true :xs 12 :lg 8}
-    [:img {:src "img/jasper.png" :style {:width "100%"}}]]
+    [:img {:src "img/jasper.png" :style {:width "100%"}
+           :title "This is probably the only fake picture of the website."}]]
    [:> mui-grid {:item true :xs 12 :md 12 :lg 4}
     [summary-card]]
    [:> mui-grid {:item true :xs 12  :lg 8}
