@@ -49,7 +49,7 @@
    ["/dashboard"
     {:name ::dashboard
      :view dashboard-view
-     :link-text "Jasper the Team Plant"}]
+     :link-text "Tim the Team Plant"}]
    ["/analytics"
     {:name ::analytics
      :view analytics-view

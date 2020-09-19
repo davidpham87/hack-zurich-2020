@@ -39,7 +39,7 @@
       {:title (reagent/as-element
                [:<>
                 [:div "Tell "
-                 [:b "Jasper "]
+                 [:b "Tim "]
                  "about your last call"]
                 [:> mui-grid {:container true :justify :center}
                  [:img {:src "img/jasper_image.png"}]]])}]]
