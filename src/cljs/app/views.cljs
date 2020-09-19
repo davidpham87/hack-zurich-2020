@@ -9,8 +9,10 @@
    ["react" :as react]
    [app.analytics.core]
    [app.components.drawer :refer (drawer)]
+   [app.components.colors :as colors]
    [app.components.mui-utils :refer (custom-theme)]
    [app.login.core]
+   [app.home.core]
    [cuerdas.core]
    [re-frame.core :as rf :refer (subscribe dispatch)]
    [reagent.core :as reagent]
@@ -23,16 +25,16 @@
    [transparency.components.screen-size :as tcs]))
 
 (defn home-view []
-  [:div {:style {:color :blue}} "Red Robin"])
+  [:div {:style {:color (colors/colors-rgb :green)}} "Tim the Team Plant"])
 
 (defn viz-view []
-  [:div {:style {:color :white}} "Analytics"])
+  [:div {:style {:color (colors/colors-rgb :green)}} "Analytics"])
 
 (defn home-route []
   [""
    ["/" {:name ::home
-         :view home-view
-         :link-text "Red Robin"}]
+         :view app.home.core/root
+         :link-text "Tim the Team Plant"}]
    ["/analytics"
     {:name ::analytics
      :view app.analytics.core/root
@@ -91,6 +93,7 @@
                                :min-height          "100vh"
                                :background-position :center
                                :background-size     :cover
+                               ;; :background-color    :white
                                :background-color    :black
                                :z-index             1201
                                :width               "100%"}}
@@ -103,7 +106,7 @@
                [:> react/Suspense
                 {:fallback (reagent/as-element
                             [:div {:style {:height "100vh" :color :white}} "Loading"])}
-                [:div {:style {:margin-bottom 10 :margin-top 80 :margin-right 10 :margin-left 10}}
+                [:div {:style {:margin-bottom 0 :margin-top 60}}
                  [(error-boundary [[:scorecards-modelling.events/initialize-db]])
                        [(get-in @current-route [:data :view] home-view) current-route-name
                         (-> @current-route :data :link-text)]]]])]]]]]))))

@@ -44,6 +44,7 @@
 (defn root []
   (let [tab (rf/subscribe [::tct/tab-global :performance])]
     (fn []
+      [:div {:style {:margin-left 10 :margin-right 10}}]
       [card {:header
              {:title (reagent/as-element [tabs])}
              :content {:children [plot @tab]}}])))
