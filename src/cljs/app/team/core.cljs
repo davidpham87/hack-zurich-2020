@@ -22,7 +22,7 @@
    [:> mui-grid {:container true}
     [:> mui-grid {:item true :xs 3}
      [:> mui-card-media
-      {:style {:width 150 :height 150}
+      {:style {:width 150 :height 150 :border-radius "100%"}
        :image (str "https://picsum.photos/id/" image "/150")}]]
     [:> mui-grid {:item true :xs 9}
      [card-content {:children title}]]]])
