@@ -7,11 +7,13 @@
    ["@material-ui/icons/Settings" :default ic-settings]
    ["@material-ui/styles/ThemeProvider" :default mui-theme-provider]
    ["react" :as react]
+   [app.analytics.core]
+   [app.components.drawer :refer (drawer)]
+   [app.components.mui-utils :refer (custom-theme)]
+   [app.login.core]
    [cuerdas.core]
    [re-frame.core :as rf :refer (subscribe dispatch)]
    [reagent.core :as reagent]
-   [app.components.drawer :refer (drawer)]
-   [app.components.mui-utils :refer (custom-theme)]
    [transparency.components.app-bar]
    [transparency.components.code-splitting :refer (lazy-component)]
    [transparency.components.drawer]
@@ -21,23 +23,23 @@
    [transparency.components.screen-size :as tcs]))
 
 (defn home-view []
-  [:div {:style {:color :blue}} "Hello!!"])
+  [:div {:style {:color :blue}} "Red Robin"])
 
 (defn viz-view []
-  [:div {:style {:color :white}} "Viz"])
+  [:div {:style {:color :white}} "Analytics"])
 
 (defn home-route []
   [""
    ["/" {:name ::home
          :view home-view
-         :link-text "Home"}]
-   ["/scorecards-modelling"
-    {:name ::visualization
-     :view viz-view
-     :link-text "Visualization"}]
+         :link-text "Red Robin"}]
+   ["/analytics"
+    {:name ::analytics
+     :view app.analytics.core/root
+     :link-text "Analytics"}]
    ["/account"
     {:name ::account
-     :view home-view
+     :view app.login.core/root-panel
      :link-text "Account"}]
    ["/settings"
     {:name ::settings
@@ -101,7 +103,7 @@
                [:> react/Suspense
                 {:fallback (reagent/as-element
                             [:div {:style {:height "100vh" :color :white}} "Loading"])}
-                [:div {:style {:margin-bottom 10}}
+                [:div {:style {:margin-bottom 10 :margin-top 80 :margin-right 10 :margin-left 10}}
                  [(error-boundary [[:scorecards-modelling.events/initialize-db]])
                        [(get-in @current-route [:data :view] home-view) current-route-name
                         (-> @current-route :data :link-text)]]]])]]]]]))))

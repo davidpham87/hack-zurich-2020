@@ -44,7 +44,7 @@
   (fn [_]
     [:<>
      [std-item [ic-home "Home"] (keyword ns :home)]
-     [std-item [ic-account-tree "Visualizations"] (keyword ns :visualization)]
+     [std-item [ic-account-tree "Analytics"] (keyword ns :analytics)]
      #_[std-item [ic-eco "ESG"] (keyword ns :esg-modelling)]
      #_[std-item [ic-extension "Lab"] (keyword ns :lab)]
      #_[std-item [ic-settings "Settings"] (keyword ns :settings)]]))
