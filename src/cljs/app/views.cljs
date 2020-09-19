@@ -7,6 +7,7 @@
    ["@material-ui/icons/Settings" :default ic-settings]
    ["@material-ui/styles/ThemeProvider" :default mui-theme-provider]
    ["react" :as react]
+   [app.achievements.core]
    [app.analytics.core]
    [app.components.colors :as colors]
    [app.components.drawer :refer (drawer)]
@@ -44,6 +45,14 @@
     {:name ::survey
      :view app.survey.core/root
      :link-text "Analytics"}]
+   ["/achievements"
+    {:name ::achievements
+     :view app.achievements.core/root
+     :link-text "Achievements"}]
+   ["/team-members"
+    {:name ::team-members
+     :view app.achievements.core/root
+     :link-text "Team Members"}]
    ["/account"
     {:name ::account
      :view app.login.core/root-panel
