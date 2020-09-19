@@ -30,19 +30,20 @@
 (defn member-card [{:keys [image title subtitle details]}]
   [:> mui-card {:style {:padding 10} :elevation 4}
    [:> mui-grid {:container true}
-    [:> mui-grid {:item true :xs 3}
+    [:> mui-grid {:item true :xs 4 :md 3}
      [:> mui-card-media
-      {:style {:width 150 :height 150 :border-radius "100%"
+      {:style {:height "100%" :border-radius "100%"
                :padding 10}
        :image (str "https://picsum.photos/id/" image "/150")}]]
-    [:> mui-grid {:item true :xs 9}
+    [:> mui-grid {:item true :xs 8 :md 9}
      [card-header {:title title :subheader subtitle}]
      [card-content {:children details}]]]])
 
 (defn root []
   [:<>
    [:div {:style {:margin-top 80}}]
-   [:> mui-grid {:container true :spacing 4 :style {:padding 20}}
+   [:> mui-grid {:container true :spacing 4 :style {:padding 20}
+                 :justify :center}
     (for [m team-data]
-      [:> mui-grid {:item true :lg 6 :xs 12}
+      [:> mui-grid {:item true :lg 6 :md 8 :xs 12}
        [member-card m]])]])
