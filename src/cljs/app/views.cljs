@@ -45,7 +45,7 @@
   [""
    ["/" {:name ::home
          :view app.home.core/root
-         :link-text "Jasper the Team Plant"}]
+         :link-text  "Tim the Team Plant"}]
    ["/dashboard"
     {:name ::dashboard
      :view dashboard-view

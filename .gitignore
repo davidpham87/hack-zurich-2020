@@ -27,3 +27,5 @@ docs/report.html
   
 *__pycache__*
 .cpcache/*
+
+ crux-in-memory.jar
