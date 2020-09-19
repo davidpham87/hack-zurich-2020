@@ -86,17 +86,18 @@
          [:> mui-theme-provider {:theme custom-theme}
           [:div {:style {:display "flex" :height "100vh" :width "100%"}}
            [drawer :app.views]
-           [:main {:ref       #(reset! main-ref %)
-                   :style     {:flex-grow           1
-                               :padding             (case @screen-size :xs 0 20)
-                               :overflow            :auto
-                               :min-height          "100vh"
-                               :background-position :center
-                               :background-size     :cover
-                               ;; :background-color    :white
-                               :background-color    :black
-                               :z-index             1201
-                               :width               "100%"}}
+           [:main {:ref   #(reset! main-ref %)
+                   :style {:flex-grow           1
+                           :padding             (case @screen-size :xs 0 20)
+                           :overflow            :auto
+                           :min-height          "100vh"
+                           :background-position :center
+                           :background-size     :cover
+                           :background-color    :white
+                           ;; :background-color    :black
+                           :overflow-x          :hidden
+                           :z-index             1201
+                           :width               "100%"}}
             [:div {:style (cond-> {:height "90%"}
                             (and (= current-route-name :home)
                                  (not (#{:xs :sm} @screen-size))) (merge {:overflow :hidden}))}

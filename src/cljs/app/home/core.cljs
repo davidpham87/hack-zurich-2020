@@ -1,15 +1,19 @@
 (ns app.home.core
   (:require
    ["@material-ui/core/Grid" :default mui-grid]
+   ["@material-ui/core/Divider" :default mui-divider]
+   ["@material-ui/core/Typography" :default mui-typography]
+   [app.components.colors :as colors]
    [app.components.mui-utils :refer (card left-right)]
    [transparency.components.charts.indicator
-    :refer (indicator-chart score->color)]))
+    :refer (indicator-chart score->color)]
+   [transparency.components.charts.line :refer (line-chart-raw)]))
 
 ;; (defn standardize-counts [x]
 ;;   (-> (+ x 12) (/ 24)))
 
 (defn indicators []
-  (let [data [65 35 60 15 90]
+  (let [data (repeatedly 5 #(rand-int 100))
         plot-colors (mapv #(-> (* / % 100) score->color) data)
         cols ["Speak Time" "Rotation" "Emotions" "Reactions" "Ratings"]]
     [:> mui-grid {:container :true :spacing 4 :align-items :stretch
@@ -26,23 +30,32 @@
           :layout {:height 220
                    :margin {:l 0 :t 0 :b 0 :r 0}}}]])]))
 
-
 (defn summary-card []
-  [card
-   {:style {:height "99%"}}
-   {:header {:title "Total Growth Points"}
-    :content {:children "1250 Growth Points"
-              :style {:height "80%"}}
-    :actions {:children
-              [:<>
-               [left-right
-                "Last session"
-                "+120"]]}
-    :style {:height "100%"}}])
+  (let [bc-color (colors/colors-rgb :green-light)]
+    [card
+     {:style {:height "97%" :background-color bc-color :color :white}}
+     {:header {:title "Total Growth Points"}
+      :content {:style {:height "80%"}
+                :children
+                [:div {:style {:display :flex :justify-content :center :align-items :center
+                               :height "100%"}}
+                 [:> mui-typography {:variant :h4} "1250 Growth Points"]]}
+      :actions {:children
+                [:<>
+                 [:> mui-divider]
+                 [left-right"Last session" "+120"]]}
+      :style {:height "100%"}}]))
 
 (defn score-over-time []
-
-  )
+  [:div {:style {:margin-top 10}}
+   [line-chart-raw
+    [{:x ["2020-01-01" "2020-02-01" "2020-03-01" "2020-04-01" "2020-05-01"]
+      :y [10 60 30 90 70 80]
+      :name "Score over time"
+      :fill :tozeroy
+      :fillcolor (colors/colors-hex :green-light-bright)
+      :line {:shape :spline
+             :color (colors/colors-hex :green-light-bright)}}]]])
 
 
 (defn root []
@@ -55,4 +68,4 @@
    [:> mui-grid {:item true :xs 12  :lg 8}
     [indicators]]
    [:> mui-grid {:item true :xs 12  :lg 4}
-    "Plot"]])
+    [score-over-time]]])
