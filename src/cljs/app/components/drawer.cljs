@@ -3,10 +3,12 @@
    ["@material-ui/core/Collapse" :default mui-collapse]
    ["@material-ui/core/Divider" :default mui-divider]
    ["@material-ui/icons/AccountTree" :default ic-account-tree]
+   ["@material-ui/icons/Eco" :default ic-eco]
    ["@material-ui/icons/Extension" :default ic-extension]
+   ["@material-ui/icons/Group" :default ic-group]
    ["@material-ui/icons/Home" :default ic-home]
    ["@material-ui/icons/Settings" :default ic-settings]
-   ["@material-ui/icons/Eco" :default ic-eco]
+   ["@material-ui/icons/Star" :default ic-star]
    [re-frame.core :as rf :refer (subscribe dispatch)]
    [transparency.components.colors :as colors]
    [transparency.components.drawer :as tcd :refer
@@ -46,7 +48,8 @@
      [std-item [ic-home "Home"] (keyword ns :home)]
      [std-item [ic-account-tree "Analytics"] (keyword ns :analytics)]
      [std-item [ic-eco "Survey"] (keyword ns :survey)]
-     #_[std-item [ic-extension "Lab"] (keyword ns :lab)]
+     [std-item [ic-star "Achievement"] (keyword ns :achievements)]
+     [std-item [ic-group "Team Members"] (keyword ns :team-members)]
      #_[std-item [ic-settings "Settings"] (keyword ns :settings)]]))
 
 (defn drawer [s]
