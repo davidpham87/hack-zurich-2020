@@ -2,12 +2,14 @@
   (:require
    [app.components.colors :as colors]
    [app.components.mui-utils :refer (card)]
+   [re-frame.core :as rf]
    [reagent.core :as reagent]
    [reagent.ratom :refer (make-reaction)]
-   [re-frame.core :as rf]
    [transparency.components.charts.scatter :refer (scatter-chart-raw)]
+   [transparency.components.tabs :as tct]
+   [transparency.components.screen-size :as tcs]
    [transparency.reporting.user-input :as tru]
-   [transparency.components.tabs :as tct]))
+   ))
 
 (defn user-input [& [{:keys [inputs]}]]
   (let [start-date @(rf/subscribe [:user-input-field :start-date])
@@ -34,15 +36,33 @@
        :selected #js {:border-radius 5 :color (colors/colors-rgb :emerald-dark)}})
 
 (defn tabs []
-  [tct/tabs-global
-   {:id :performance
-    :choices
-    [{:label "Speak time" :value :speak-time}
-     {:label "Interaction" :value :interaction}
-     {:label "Emotions" :value :emotions}
-     {:label "Reactions" :value :reactions}
-     {:label "Ratings" :value :ratings}]
-    :style card-tab-style}])
+  (let [screen-size (rf/subscribe [::tcs/screen-size])]
+    (fn []
+      (case @screen-size
+        (:xs :sm)
+        [tru/render-user-input-config
+         (tru/picker
+          {:id :performance
+           :event [::tct/set-tab-args :global :performance]
+           :subscription [::tct/tab-global :performance]
+           :choices [{:label "Speak time" :value :speak-time}
+                     {:label "Interaction" :value :interaction}
+                     {:label "Emotions" :value :emotions}
+                     {:label "Reactions" :value :reactions}
+                     {:label "Ratings" :value :ratings}]})]
+        [tct/tabs-global
+         {:id :performance
+          :choices
+          [{:label "Speak time" :value :speak-time}
+           {:label "Interaction" :value :interaction}
+           {:label "Emotions" :value :emotions}
+           {:label "Reactions" :value :reactions}
+           {:label "Ratings" :value :ratings}]
+          :style card-tab-style}]
+        )
+      )
+    )
+  )
 
 (defn random [n]
   (vec (repeatedly n (fn [] (+ 5 (rand-int 10))))))

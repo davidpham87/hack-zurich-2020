@@ -1,11 +1,12 @@
 (ns app.core
   (:require
    [app.db]
-   [app.router]
    [app.events :as events]
+   [app.router]
    [app.views :refer (app)]
    [re-frame.core :as rf]
    [reagent.dom :as dom]
+   [transparency.components.screen-size :refer (window-event-listeners!)]
    [transparency.events.core]
    [transparency.subs]))
 
@@ -14,6 +15,7 @@
 
 (defn main []
   (rf/dispatch [::events/init])
+  (window-event-listeners!)
   (app.router/init-routes!)
   (mount-app))
 
