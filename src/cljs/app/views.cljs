@@ -74,6 +74,9 @@
         [:<>
          [transparency.components.drawer/menu-button]])}]]))
 
+(defn footer []
+  [:div {:style {:height 200}}])
+
 (defonce main-ref (reagent/atom nil))
 
 (defn app []
@@ -110,4 +113,5 @@
                 [:div {:style {:margin-bottom 0 :margin-top 60}}
                  [(error-boundary [[:scorecards-modelling.events/initialize-db]])
                        [(get-in @current-route [:data :view] home-view) current-route-name
-                        (-> @current-route :data :link-text)]]]])]]]]]))))
+                        (-> @current-route :data :link-text)]]]])
+             [footer]]]]]]))))
