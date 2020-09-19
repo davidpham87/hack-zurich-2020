@@ -3,6 +3,7 @@
    [app.components.colors :as colors]
    [app.components.mui-utils :refer (card)]
    [reagent.core :as reagent]
+   [reagent.ratom :refer (make-reaction)]
    [re-frame.core :as rf]
    [transparency.components.charts.scatter :refer (scatter-chart-raw)]
    [transparency.reporting.user-input :as tru]
@@ -47,7 +48,7 @@
 (defn random-line [n]
   (vec (repeatedly n (fn [] (- 5 (rand-int 10))))))
 
-(defn plot [tab]
+(defn plot [tab data]
   [scatter-chart-raw
    [{:x (random 5)
      :y ["Dominique" "Severin" "Chris" "David A." "David P."]
@@ -62,7 +63,7 @@
                      :autorange :reversed
                      :type :category}}}])
 
-(defn plot-line [tab]
+(defn plot-line [tab data]
   [scatter-chart-raw
    (vec (for [person ["Dominique" "Severin" "Chris" "David A." "David P."]]
           {:x (range 20)
@@ -76,15 +77,20 @@
              :legend {:bordercolor :white :x 0 :y -0.05}}}])
 
 (defn root []
-  (let [tab (rf/subscribe [::tct/tab-global :performance])]
+  (let [tab (rf/subscribe [::tct/tab-global :performance])
+        start-date (rf/subscribe [:user-input-field :start-date])
+        end-date (rf/subscribe [:user-input-field :end-date])
+        team (rf/subscribe [:user-input-field ::team])
+        data (make-reaction (fn [] [@team @start-date @end-date ]))]
+
     (fn []
       [:div {:style {:padding-left 10 :padding-right 10 :padding-top 10}}
        [user-input]
        [card {:elevation 4 :style {:height 650 :margin-bottom 20}}
         {:header
          {:title (reagent/as-element [tabs])}
-         :content {:children [plot @tab]}}]
+         :content {:children [plot @tab @data]}}]
        [card {:elevation 4 :style {:height 650 :margin-bottom 20}}
         {:header
          {:title (reagent/as-element [tabs])}
-         :content {:children [plot-line @tab]}}]])))
+         :content {:children [plot-line @tab @data]}}]])))
