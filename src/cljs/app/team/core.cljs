@@ -45,5 +45,5 @@
    [:> mui-grid {:container true :spacing 4 :style {:padding 20}
                  :justify :center}
     (for [m team-data]
-      [:> mui-grid {:item true :lg 6 :md 8 :xs 12}
+      [:> mui-grid {:item true :lg 6 :md 8 :sm 10 :xs 11}
        [member-card m]])]])
