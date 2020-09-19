@@ -1,1 +1,1 @@
-{"module-uris":{"shared":[],"main":["js/main.js"]},"module-infos":{"shared":null,"main":["shared"]}}
+{"module-uris":{"shared":[],"main":["js/main.js"],"plotly":["js/plotly.js"],"views":["js/views.js"]},"module-infos":{"shared":null,"main":["shared"],"plotly":["shared"],"views":["plotly","main"]}}
