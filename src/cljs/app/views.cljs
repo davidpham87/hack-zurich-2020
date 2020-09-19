@@ -13,6 +13,7 @@
    [app.components.drawer :refer (drawer)]
    [app.components.mui-utils :refer (custom-theme)]
    [app.home.core]
+   [app.dashboard.core]
    [app.login.core]
    [app.survey.core]
    [app.team.core]
@@ -37,7 +38,11 @@
   [""
    ["/" {:name ::home
          :view app.home.core/root
-         :link-text "Tim the Team Plant"}]
+         :link-text "Jasper the Team Plant"}]
+   ["/dashboard"
+    {:name ::dashboard
+     :view app.dashboard.core/root
+     :link-text "Jasper the Team Plant"}]
    ["/analytics"
     {:name ::analytics
      :view app.analytics.core/root

@@ -4,6 +4,7 @@
    ["@material-ui/core/Divider" :default mui-divider]
    ["@material-ui/icons/AccountTree" :default ic-account-tree]
    ["@material-ui/icons/Eco" :default ic-eco]
+   ["@material-ui/icons/Dashboard" :default ic-dashboard]
    ["@material-ui/icons/Extension" :default ic-extension]
    ["@material-ui/icons/Group" :default ic-group]
    ["@material-ui/icons/Home" :default ic-home]
@@ -46,6 +47,7 @@
   (fn [_]
     [:<>
      [std-item [ic-home "Home"] (keyword ns :home)]
+     [std-item [ic-dashboard "Dashboard"] (keyword ns :dashboard)]
      [std-item [ic-account-tree "Analytics"] (keyword ns :analytics)]
      [std-item [ic-eco "Survey"] (keyword ns :survey)]
      [std-item [ic-star "Achievements"] (keyword ns :achievements)]
