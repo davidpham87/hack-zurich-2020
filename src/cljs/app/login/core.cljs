@@ -532,7 +532,7 @@
         [:main {:class (cs (gobj/get classes "content"))
                 :style {:min-height "80vh"
                         ;; :background-image "url(images/background.jpg)"
-                        :background-color "#3c1b60"
+                        :background-color :white
                         ;; :background-color :black
                         :background-position :center
                         :background-size :cover
