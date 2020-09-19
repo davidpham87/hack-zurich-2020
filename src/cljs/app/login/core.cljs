@@ -531,14 +531,11 @@
       (let [tab-value (if false :update-userprofile @tab)]
         [:main {:class (cs (gobj/get classes "content"))
                 :style {:min-height "80vh"
-                        ;; :background-image "url(images/background.jpg)"
                         :background-color :white
-                        ;; :background-color :black
                         :background-position :center
                         :background-size :cover
                         :color :white
                         :z-index 0}}
-         #_[:div {:class (cs (gobj/get classes "appBarSpacer"))}]
          [:> mui/Fade {:in true :timeout 1000}
           [:> mui/Grid {:container true :justify :center :alignItems :center
                         :style {:height "70vh"}}

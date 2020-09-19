@@ -22,7 +22,13 @@
   reagent-utils/reagent-utils         {:mvn/version "0.3.3"}
   testdouble/clojurescript.csv        {:mvn/version "0.4.5"}
 
-  transparency/transparency {:local/root "/home/david/Documents/transparency/frontend"}}
+  transparency/transparency {:local/root "/home/david/Documents/transparency/frontend"}
+
+  juxt/crux-core {:mvn/version "20.09-1.12.0-beta"}
+  juxt/crux-jdbc {:mvn/version "20.09-1.12.0-beta"}
+  juxt/crux-rocksdb {:mvn/version "20.09-1.12.0-beta"}
+  juxt/crux-http-server {:mvn/version "20.09-1.12.0-alpha"}
+  org.xerial/sqlite-jdbc {:mvn/version "3.28.0" :scope "provided"}}
 
  :aliases
 

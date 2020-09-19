@@ -93,7 +93,7 @@
            :type :lines
            :line {:shape :spline}
            :name person}))
-   {:layout {:margin {:l 80}
+   {:layout {:margin {:l 20}
              :yaxis {:dtick 5}
              :height 480
              :legend {:bordercolor :white :x 0 :y -0.05}}}])

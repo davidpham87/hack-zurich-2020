@@ -3,7 +3,7 @@
    ["@material-ui/core/Card" :default mui-card]
    ["@material-ui/core/CardMedia" :default mui-card-media]
    ["@material-ui/core/Grid" :default mui-grid]
-   [app.components.mui-utils :refer (card-content card-header left-right)]))
+   [app.components.mui-utils :refer (card-content card-header)]))
 
 (def team-data
   [{:image 1041
