@@ -3,7 +3,7 @@
    [app.db]
    [app.router]
    [app.events :as events]
-   [app.Views :refer (app)]
+   [app.views :refer (app)]
    [re-frame.core :as rf]
    [reagent.dom :as dom]
    [transparency.events.core]
