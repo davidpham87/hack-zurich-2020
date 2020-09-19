@@ -49,9 +49,9 @@
 (defn score-over-time []
   [:div {:style {:margin-top 10}}
    [line-chart-raw
-    [{:x ["2020-01-01" "2020-02-01" "2020-03-01" "2020-04-01" "2020-05-01"]
-      :y [10 60 30 90 70 80]
-      :name "Score over time"
+    [{:x ["2020-01-01" "2020-02-01" "2020-03-01" "2020-04-01" "2020-05-01" "2020-06-01"]
+      :y [10 60 30 90 70 80 100]
+      :name "Team Spirit"
       :fill :tozeroy
       :fillcolor (colors/colors-hex :green-light-bright)
       :line {:shape :spline

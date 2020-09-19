@@ -84,7 +84,7 @@
         data (make-reaction (fn [] [@team @start-date @end-date ]))]
 
     (when-not @team
-      (rf/dispach [:set-user-input ::team :on-site]))
+      (rf/dispatch [:set-user-input ::team :on-site]))
 
     (fn []
       [:div {:style {:padding-left 10 :padding-right 10 :padding-top 10}}
