@@ -30,12 +30,12 @@
 (defn member-card [{:keys [image title subtitle details]}]
   [:> mui-card {:style {:padding 10} :elevation 4}
    [:> mui-grid {:container true}
-    [:> mui-grid {:item true :xs 4 :md 3}
+    [:> mui-grid {:item true :xs 5 :sm 4 :md 3}
      [:> mui-card-media
       {:style {:height "100%" :border-radius "100%"
                :padding 10}
        :image (str "https://picsum.photos/id/" image "/150")}]]
-    [:> mui-grid {:item true :xs 8 :md 9}
+    [:> mui-grid {:item true :xs 7 :sm 8 :md 9}
      [card-header {:title title :subheader subtitle}]
      [card-content {:children details}]]]])
 
