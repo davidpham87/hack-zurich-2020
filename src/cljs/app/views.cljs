@@ -35,10 +35,6 @@
   (reagent/adapt-react-class
    (lazy-component app.analytics.core/root)))
 
-
-
-
-
 (defn home-view []
   [:div {:style {:color (colors/colors-rgb :green)}} "Tim the Team Plant"])
 

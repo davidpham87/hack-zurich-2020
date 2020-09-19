@@ -26,7 +26,7 @@
 
 (defn end-survey-button []
   [:> mui-button
-   {:on-click #(rf/dispatch [::tcr/navigate :app.views/home])
+   {:on-click #(rf/dispatch [::tcr/navigate :app.views/dashboard])
     :style {:maring-left :auto}}
    "End survey"])
 
