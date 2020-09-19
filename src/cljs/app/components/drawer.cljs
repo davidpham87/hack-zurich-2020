@@ -45,7 +45,7 @@
     [:<>
      [std-item [ic-home "Home"] (keyword ns :home)]
      [std-item [ic-account-tree "Analytics"] (keyword ns :analytics)]
-     #_[std-item [ic-eco "ESG"] (keyword ns :esg-modelling)]
+     [std-item [ic-eco "Survey"] (keyword ns :survey)]
      #_[std-item [ic-extension "Lab"] (keyword ns :lab)]
      #_[std-item [ic-settings "Settings"] (keyword ns :settings)]]))
 

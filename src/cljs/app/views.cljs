@@ -8,11 +8,12 @@
    ["@material-ui/styles/ThemeProvider" :default mui-theme-provider]
    ["react" :as react]
    [app.analytics.core]
-   [app.components.drawer :refer (drawer)]
    [app.components.colors :as colors]
+   [app.components.drawer :refer (drawer)]
    [app.components.mui-utils :refer (custom-theme)]
-   [app.login.core]
    [app.home.core]
+   [app.login.core]
+   [app.survey.core]
    [cuerdas.core]
    [re-frame.core :as rf :refer (subscribe dispatch)]
    [reagent.core :as reagent]
@@ -38,6 +39,10 @@
    ["/analytics"
     {:name ::analytics
      :view app.analytics.core/root
+     :link-text "Analytics"}]
+   ["/survey"
+    {:name ::survey
+     :view app.survey.core/root
      :link-text "Analytics"}]
    ["/account"
     {:name ::account
