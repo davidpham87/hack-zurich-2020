@@ -8,12 +8,10 @@
    ["@material-ui/styles/ThemeProvider" :default mui-theme-provider]
    ["react" :as react]
    [app.achievements.core]
-   [app.analytics.core]
    [app.components.colors :as colors]
    [app.components.drawer :refer (drawer)]
    [app.components.mui-utils :refer (custom-theme)]
    [app.home.core]
-   [app.dashboard.core]
    [app.login.core]
    [app.survey.core]
    [app.team.core]
@@ -28,6 +26,19 @@
    [transparency.components.reitit :as tcr]
    [transparency.components.screen-size :as tcs]))
 
+
+(def dashboard-view
+  (reagent/adapt-react-class
+   (lazy-component app.dashboard.core/root)))
+
+(def analytics-view
+  (reagent/adapt-react-class
+   (lazy-component app.analytics.core/root)))
+
+
+
+
+
 (defn home-view []
   [:div {:style {:color (colors/colors-rgb :green)}} "Tim the Team Plant"])
 
@@ -41,11 +52,11 @@
          :link-text "Jasper the Team Plant"}]
    ["/dashboard"
     {:name ::dashboard
-     :view app.dashboard.core/root
+     :view dashboard-view
      :link-text "Jasper the Team Plant"}]
    ["/analytics"
     {:name ::analytics
-     :view app.analytics.core/root
+     :view analytics-view
      :link-text "Analytics"}]
    ["/survey"
     {:name ::survey

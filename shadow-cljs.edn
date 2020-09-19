@@ -17,7 +17,12 @@
     :main {:init-fn app.core/main
            ;; :entries [scorecards-modelling.specs]
            :preloads [day8.re-frame-10x.preload]
-           :depends-on #{:shared}}}
+           :depends-on #{:shared}}
+    :views {:depends-on #{:plotly :main}
+            :entries [app.dashboard.core
+                      app.analytics.core]}
+    :plotly {:entries [transparency.components.plotly]
+             :depends-on #{:shared}}}
 
    :closure-defines {}
 
