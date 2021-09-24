@@ -36,7 +36,7 @@
    (lazy-component app.analytics.core/root)))
 
 (defn home-view []
-  [:div {:style {:color (colors/colors-rgb :green)}} "Tim the Team Plant"])
+  [:div {:style {:color (colors/colors-rgb :green)}} "Neo the Doubtful"])
 
 (defn viz-view []
   [:div {:style {:color (colors/colors-rgb :green)}} "Analytics"])
@@ -45,11 +45,11 @@
   [""
    ["/" {:name ::home
          :view app.home.core/root
-         :link-text  "Tim the Team Plant"}]
+         :link-text "Neo the Doubtful"}]
    ["/dashboard"
     {:name ::dashboard
      :view dashboard-view
-     :link-text "Tim the Team Plant"}]
+     :link-text "Neo the Doubtful"}]
    ["/analytics"
     {:name ::analytics
      :view analytics-view
@@ -89,7 +89,8 @@
                     [:> icon]])]
     [:div {:style {:margin-bottom 64 :z-index 1201}}
      [:> transparency.components.app-bar/app-bar
-      {:breakpoint :sm
+      {:style {:background-color (colors/colors-rgb :graphite)}
+       :breakpoint :sm
        :buttons
        (reagent/as-element
         [:<>
@@ -138,7 +139,8 @@
                 {:fallback (reagent/as-element
                             [:div {:style {:height "100vh" :color :white}} "Loading"])}
                 [:div {:style {:margin-bottom 0 :margin-top 60}}
-                 [(error-boundary [[:scorecards-modelling.events/initialize-db]])
+                 [(error-boundary
+                   [[:app.events/init]])
                        [(get-in @current-route [:data :view] home-view) current-route-name
                         (-> @current-route :data :link-text)]]]])
              [footer]]]]]]))))

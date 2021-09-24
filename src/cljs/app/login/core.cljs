@@ -1,15 +1,22 @@
 (ns app.login.core
   (:require-macros [reagent.ratom])
   (:require
-   ["@material-ui/core" :as mui]
+   ["@material-ui/core/Avatar" :default mui-avatar]
    ["@material-ui/core/Button" :default mui-button]
+   ["@material-ui/core/FormControl" :default mui-form-control]
+   ["@material-ui/core/FormControlLabel" :default mui-form-control-label]
+   ["@material-ui/core/FormHelperText" :default mui-form-helper-text]
+   ["@material-ui/core/Grid" :default mui-grid]
+   ["@material-ui/core/Input" :default mui-input]
    ["@material-ui/core/InputBase" :default mui-input-base]
    ["@material-ui/core/InputLabel" :default mui-input-label]
+   ["@material-ui/core/Paper" :default mui-paper]
+   ["@material-ui/core/Switch" :default mui-switch]
    ["@material-ui/core/Tab" :default mui-tab]
    ["@material-ui/core/Tabs" :default mui-tabs]
    ["@material-ui/core/TextField" :default mui-text-field]
    ["@material-ui/core/Typography" :default mui-typography]
-   ["@material-ui/core/styles" :refer (withStyles createMuiTheme)]
+   ["@material-ui/core/styles" :refer (withStyles)]
    ["@material-ui/icons/Lock" :default ic-lock]
    ["@material-ui/icons/PersonAdd" :default ic-person-add]
    [app.components.colors :as colors]
@@ -201,16 +208,16 @@
          :submit #js {:marginTop (spacing 2)}}))
 
 (defn form-title [s]
-  [:> mui/Typography {:component "h5" :variant "h5"
+  [:> mui-typography {:component "h5" :variant "h5"
                       :style {:color panel-font-color
                               :font-weight :bold
                               :font-family "Helvetica"}} s])
 (defn input-label [m s]
-  [:> mui/InputLabel (merge {:style {:color "grey" :z-index 1 :padding-left 10
+  [:> mui-input-label (merge {:style {:color "grey" :z-index 1 :padding-left 10
                                      :padding-right 10}} m) s])
 
 (defn logout-button [classes]
-  [:> mui/Button
+  [:> mui-button
    {:fullWidth true
     :variant "contained"
     :color :secondary
@@ -221,10 +228,10 @@
 (defn email
   [{:keys [credentials update-credentials loading? errors disabled?]}]
   (let [error? (some #(= (:status %) 404) @errors)]
-    [:> mui/FormControl {:margin "normal" :required true
+    [:> mui-form-control {:margin "normal" :required true
                          :fullWidth true :error error?}
      [input-label {:html-for "email"} "User id"]
-     [:> mui/Input
+     [:> mui-input
       {:id "email" :name "email" :type "string"
        :inputComponent input-component
        ;; :autoComplete "email"
@@ -241,11 +248,11 @@
        :on-change (partial update-credentials :email)}]]))
 
 (defn username [{:keys [credentials update-credentials loading? required?]}]
-  [:> mui/FormControl
+  [:> mui-form-control
    {:margin "normal" :required (if (nil? required?) true required?)
     :color :white :fullWidth true}
    [input-label {:html-for "username"} "Username"]
-   [:> mui/Input
+   [:> mui-input
     {:id "username" :name "username"
      :autoComplete "username"
      :inputComponent input-component
@@ -258,11 +265,11 @@
   [{:keys [credentials update-credentials loading? errors required?]}]
   (let [error? (some #(or (= (:status %) 409)
                           (= (:type %) :insecure-password)) @errors)]
-    [:> mui/FormControl
+    [:> mui-form-control
      {:margin "normal" :required (if (nil? required?) true required?)
       :color :white :fullWidth true :error error?}
      [input-label {:html-for "password"} "Password"]
-     [:> mui/Input
+     [:> mui-input
       {:id "password" :name "password" :type "password"
        :autoComplete "current-password"
        :value (or (@credentials :password) "")
@@ -271,19 +278,19 @@
        :style {:background-color :white :padding-left 10 :padding-right 10}
        :on-change (partial update-credentials :password)}]
      (when (some #(= (:status %) 409) @errors)
-       [:> mui/FormHelperText "Invalid credentials. Please enter them again."])
+       [:> mui-form-helper-text "Invalid credentials. Please enter them again."])
      (when (some #(= (:type %) :insecure-password) @errors)
-       [:> mui/FormHelperText "Insecure password. Password should be at least 12 characters."])]))
+       [:> mui-form-helper-text "Insecure password. Password should be at least 12 characters."])]))
 
 (defn confirm-password
   [{:keys [credentials update-credentials loading? errors required?]}]
-  [:> mui/FormControl
+  [:> mui-form-control
    {:margin "normal"
     :required (if (nil? required?) true required?)
     :fullWidth true
     :error (not (zero? (count @errors)))}
    [input-label {:html-for "confirm-password"} "Confirm password"]
-   [:> mui/Input
+   [:> mui-input
     {:id "confirm-password" :name "confirm-password" :type "password"
      :value (or (@credentials :confirm-password) "")
      :error (some #(= (:type %) :unequal-password) @errors)
@@ -291,10 +298,10 @@
      :style {:background-color :white :padding-left 10 :padding-right 10}
      :on-change (partial update-credentials :confirm-password)}]
    (when (some #(= (:type %) :unequal-password) @errors)
-     [:> mui/FormHelperText "Passwords are not equal. Please enter the password again."])])
+     [:> mui-form-helper-text "Passwords are not equal. Please enter the password again."])])
 
 (defn submit-button [{:keys [loading?]} classes button-label]
-  [:> mui/Button
+  [:> mui-button
    {:type "submit" :fullWidth true :variant "contained"
     :disabled @loading?
     :color "secondary" :class (cs (gobj/get classes "submit"))}
@@ -314,21 +321,21 @@
    [email form-controls]
    [password form-controls]
    [submit-button form-controls classes "Sign in"]
-   [:> mui/Grid {:container true :justify :space-between
+   [:> mui-grid {:container true :justify :space-between
                  :alignItems :center
                  :style {:margin-top 10}}
-    [:> mui/Grid {:item true :xs 6}
-     [:> mui/FormControlLabel
+    [:> mui-grid {:item true :xs 6}
+     [:> mui-form-control-label
       {:control
        (reagent/as-element
-        [:> mui/Switch
+        [:> mui-switch
          {:on-change #(swap! (:credentials form-controls) assoc :remember-me
                              (-> % .-target .-checked))
           :checked (-> form-controls :credentials deref :remember-me)
           :disabled @(:loading? form-controls)
           :value "remember" :color "secondary"}])
        :label (reagent/as-element
-               [:> mui/Typography {:style {:color panel-font-color}}
+               [:> mui-typography {:style {:color panel-font-color}}
                 "Remember me"])}]]
 
     #_[:> mui/Grid {:item true :xs 4}
@@ -405,7 +412,7 @@
     :class (cs (gobj/get classes "form"))}
    [email form-controls]
    [password form-controls]
-   [:> mui/Typography {:style {:color panel-font-color}}
+   [:> mui-typography {:style {:color panel-font-color}}
     "Passwords contain at least 12 characters."]
    [confirm-password form-controls]
    [submit-button form-controls classes "Sign up"]])
@@ -471,32 +478,32 @@
 
 (defmethod content :sign-in
   [_ classes]
-  [:> mui/Paper (content-style (cs (gobj/get classes "paper")))
-   [:> mui/Avatar {:class (cs (gobj/get classes "avatar"))}
+  [:> mui-paper (content-style (cs (gobj/get classes "paper")))
+   [:> mui-avatar {:class (cs (gobj/get classes "avatar"))}
     [:> ic-lock]]
    [form-title "Login"]
    [sign-in-form classes]])
 
 (defmethod content :register
   [_ classes]
-  [:> mui/Paper (content-style (cs (gobj/get classes "paper")))
-   [:> mui/Avatar {:class (cs (gobj/get classes "avatar"))}
+  [:> mui-paper (content-style (cs (gobj/get classes "paper")))
+   [:> mui-avatar {:class (cs (gobj/get classes "avatar"))}
     [:> ic-person-add]]
    [form-title "Sign up"]
    [register-form classes]])
 
 (defmethod content :reset-password
   [_ classes]
-  [:> mui/Paper (content-style (cs (gobj/get classes "paper")))
-   [:> mui/Avatar {:class (cs (gobj/get classes "avatar"))}
+  [:> mui-paper (content-style (cs (gobj/get classes "paper")))
+   [:> mui-avatar {:class (cs (gobj/get classes "avatar"))}
     [:> ic-person-add]] ;; TOOD change icon
    [form-title "Reset password"]
    [reset-password-form classes]])
 
 (defmethod content :update-userprofile
   [_ classes]
-  [:> mui/Paper (content-style (cs (gobj/get classes "paper")))
-   [:> mui/Avatar {:class (cs (gobj/get classes "avatar"))}
+  [:> mui-paper (content-style (cs (gobj/get classes "paper")))
+   [:> mui-avatar {:class (cs (gobj/get classes "avatar"))}
     [:> ic-person-add]]
    [form-title "User Profile"]
    [update-userprofile-form classes]
@@ -529,31 +536,23 @@
       ;; we want a different login value whenever the user is logged.
       ;; this complects the component quite a bit though. Is it a good choice?
       (let [tab-value (if false :update-userprofile @tab)]
-        [:main {:class (cs (gobj/get classes "content"))
-                :style {:min-height "80vh"
-                        :background-color :white
-                        :background-position :center
-                        :background-size :cover
-                        :color :white
-                        :z-index 0}}
-         [:> mui/Fade {:in true :timeout 1000}
-          [:> mui/Grid {:container true :justify :center :alignItems :center
-                        :style {:height "70vh"}}
-           [:> mui/Grid {:item true :xs 12 :md 8 :xl 6}
-            [:> mui/Paper {:elevation 10
-                           :style {:margin-top "0vh"
-                                   :border-radius 3
-                                   :background-position :center
-                                   :background-color "rgba(0,0,0,0.8)"
-                                   :color "white"
-                                   :margin-left :auto
-                                   :margin-right :auto
-                                   :width "80%"
-                                   :z-index 10}}
-             [tabs-comp]
-             [:> mui/Grid {:container true :justify "center"}
-              ^{:key tab-value}
-              [content tab-value classes]]]]]]]))))
+        [:> mui-grid {:container true :justify :center :alignItems :center
+                      :style {:height "70vh"}}
+         [:> mui-grid {:item true :xs 12 :md 8 :xl 6}
+          [:> mui-paper {:elevation 10
+                         :style {:margin-top "0vh"
+                                 :border-radius 3
+                                 :background-position :center
+                                 :background-color "rgba(0,0,0,0.8)"
+                                 :color "white"
+                                 :margin-left :auto
+                                 :margin-right :auto
+                                 :width "80%"
+                                 :z-index 10}}
+           [tabs-comp]
+           [:> mui-grid {:container true :justify "center"}
+            ^{:key tab-value}
+            [content tab-value classes]]]]]))))
 
 (defn root-panel [props]
   (init-events)
