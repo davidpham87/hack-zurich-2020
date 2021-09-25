@@ -15,19 +15,29 @@
    x])
 
 (defn root []
-  [:> mui-grid {:container true :style {:padding 20} :spacing 2
-                :align-items :stretch :justify :space-around}
-   [:> mui-grid {:item true :xs 8}
-    [center
-     [:img {:src "img/jasper_gif_opt.gif" :style {:width 200 :style :flex}}]]]
+  [:div {:style {:margin           -20
+                 :height           "100vh"
+                 :background-color "rgb(132, 177, 255)"
+                 :overflow         :hidden}}
+   [:> mui-grid
+    {:container   true
+     :style       {:background-color "rgb(132, 177, 255)"
+                   :padding          20
+                   :overflow         :hidden}
+     :spacing     2
+     :align-items :stretch :justify :space-around}
+    [:> mui-grid {:item true :xs 10 :sm 8 :lg 4}
+     [center
+      [:img {:src "img/monkey.webp" :style {:width         "100%"
+                                            :display       :flex
+                                            :border-radius "100%"}}]]]
+    [:> mui-grid {:item true :xs 6}
+     [center
+      [:> mui-button {:color    :primary :start-icon (reagent/as-element [:> ic-dashboard])
+                      :on-click #(rf/dispatch [::tcr/navigate :app.views/dashboard])} "Enter"]]]
 
-   [:> mui-grid {:item true :xs 6}
-    [center
-     [:> mui-button {:color :secondary :start-icon (reagent/as-element [:> ic-dashboard])
-                     :on-click #(rf/dispatch [::tcr/navigate :app.views/dashboard])} "Enter"]]]
-
-   [:> mui-grid {:item true :xs 6}
-    [center
-     [:> mui-button {:color :secondary
-                     :on-click #(rf/dispatch [::tcr/navigate :app.views/account])
-                     :start-icon (reagent/as-element [:> ic-person])} "Login"]]]])
+    [:> mui-grid {:item true :xs 6}
+     [center
+      [:> mui-button {:color      :primary
+                      :on-click   #(rf/dispatch [::tcr/navigate :app.views/account])
+                      :start-icon (reagent/as-element [:> ic-person])} "Login"]]]]])

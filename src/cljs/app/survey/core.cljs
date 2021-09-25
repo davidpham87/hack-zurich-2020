@@ -31,18 +31,20 @@
    "End survey"])
 
 (defn root []
-  [:<>
+  [:div {:style {:background-color "#B5FEC8"
+                 :margin -20}}
    [:> mui-grid {:container true :spacing 4 :style {:padding 10}
                  :justify :space-around}
     [:> mui-grid {:item true :xs 12 :md 8}
      [card-header
       {:title (reagent/as-element
-               [:<>
-                [:div "Tell "
-                 [:b "Tim "]
-                 "about your last call"]
-                [:> mui-grid {:container true :justify :center}
-                 [:img {:src "img/jasper_image.png"}]]])}]]
+               [:div {:style {:color :black}}
+                [:div "Tell " [:b "Neo "] "about your last call"]
+                [:div {:style {:width "100%" :display :grid :place-content :center
+                               :padding-top "1em"}}
+                 [:img {:src "img/3600_4_01.webp"
+                        :style {:width 250
+                                :border-radius "100%"}}]]])}]]
     [:> mui-grid {:item true :xs 12 :md 8}
      [card {:header {:title "How was the mood of the call overall?"
                      :subheader "Did you spend a good time?"}
@@ -50,10 +52,36 @@
             :actions {:children [end-survey-button]}}]]
     [:> mui-grid {:item true :xs 12 :md 8}
      [card
-      {:header {:title "Are you happy with your contribution"
-                :subheader "Do you feel people listened to your ideas?"}
+      {:header {:title "Are you happy with your contribution?"
+                :subheader "Do you feel people listened and discussed about your ideas?"}
        :content {:children [rating "contribution" ["No" "I was quiet." "Hmm.." "Yes" "I was too chatty."]]}
        :actions {:children [end-survey-button]}}]]
+    [:> mui-grid {:item true :xs 12 :md 8}
+     [card
+      {:header
+       {:title "How many fallacies did you remarked?"
+        :subheader "Can you enumerate rhetological fallacies from the person with whom you speak?"}
+       :content {:children
+                 [rating "fallacies"
+                  ["No" "There were few, but minor." "There were some, but the point was still valid."
+                   "Yes, many but some arguments were good. "
+                   "The whole argument was based on fallacies."]]}
+       :actions {:children [end-survey-button]}}]]
+    [:> mui-grid {:item true :xs 12 :md 8}
+     [card
+      {:header
+       {:title "Cognitive Bias"
+        :subheader "Did you try to have 360 degree horizon and search actively
+        for cognitive bias?"}
+       :content {:children
+                 [rating "cognitive-bias"
+                  ["No"
+                   "We mentioned the possibility, but there was no time to study them."
+                   "Yes, we discussed about some, but ignored them."
+                   "Yes, we enumerated them, and discussed about them "
+                   "Yes, we look thoroughly and to act accordingly."]]}
+       :actions {:children [end-survey-button]}}]]
+
     [:> mui-grid {:item true :xs 12 :md 8}
      [card
       {:header {:title "Do you think the meeting was productive?"

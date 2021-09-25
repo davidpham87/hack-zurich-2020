@@ -22,7 +22,7 @@
   reagent-utils/reagent-utils         {:mvn/version "0.3.4"}
   testdouble/clojurescript.csv        {:mvn/version "0.5.1"}
 
-  transparency/transparency {:local/root "/home/david/Documents/transparency/frontend"}}
+  transparency/transparency {:local/root "../..//transparency/frontend"}}
 
  :aliases
 

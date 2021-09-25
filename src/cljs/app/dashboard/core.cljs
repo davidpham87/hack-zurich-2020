@@ -1,10 +1,14 @@
 (ns app.dashboard.core
   (:require
-   ["@material-ui/core/Grid" :default mui-grid]
+   ["@material-ui/core/Button" :default mui-button]
    ["@material-ui/core/Divider" :default mui-divider]
+   ["@material-ui/core/Grid" :default mui-grid]
    ["@material-ui/core/Typography" :default mui-typography]
+   ["@material-ui/icons/Restaurant" :default ic-restaurant]
+   ["@material-ui/icons/School" :default ic-school]
    [app.components.colors :as colors]
    [app.components.mui-utils :refer (card left-right)]
+   [reagent.core :as reagent]
    [transparency.components.charts.indicator
     :refer (indicator-chart score->color)]
    [transparency.components.charts.line :refer (line-chart-raw)]))
@@ -13,8 +17,7 @@
   (let [data (repeatedly 5 #(rand-int 100))
         plot-colors (mapv #(-> (* / % 100) score->color) data)
         cols ["Speak Time" "Rotation" "Emotions" "Reactions" "Ratings"]]
-    [:> mui-grid {:container :true :spacing 4 :align-items :stretch
-                  :style {:padding-top 10}}
+    [:> mui-grid {:container :true :spacing 4 :align-items :stretch}
      (for [[v title color] (map vector data cols plot-colors)]
        ^{:key (gensym "emotion-id")}
        [:> mui-grid {:item :true :xs 12 :md 4 :lg 4}
@@ -29,17 +32,17 @@
 (defn summary-card []
   (let [bc-color (colors/colors-rgb :green-light)]
     [card
-     {:style {:height "97%" :background-color bc-color :color :white}}
+     {:square true
+      :style {:height "100%" :background-color bc-color :color :white
+              :display :flex :flex-direction :column}}
      {:header {:title "Total Growth Points"}
-      :content {:style {:height "80%"}
+      :content {:style {:flex 1}
                 :children
                 [:div {:style {:display :flex :justify-content :center :align-items :center
                                :height "100%"}}
                  [:> mui-typography {:variant :h4} "1250 Growth Points"]]}
       :actions {:children
-                [:<>
-                 [:> mui-divider]
-                 [left-right"Last session" "+120"]]}
+                [:<> [:> mui-divider] [left-right"Last session" "+120"]]}
       :style {:height "100%"}}]))
 
 (defn score-over-time []
@@ -53,13 +56,32 @@
       :line {:shape :spline
              :color (colors/colors-hex :green-light-bright)}}]]])
 
-
 (defn root []
   [:> mui-grid {:container true :style {:padding 20} :spacing 2
                 :align-items :stretch}
-   [:> mui-grid {:item true :xs 12 :lg 8}
-    [:img {:src "img/jasper.png" :style {:width "100%"}
-           :title "This is probably the only fake picture of the website."}]]
+   [:> mui-grid {:item true :xs 12}
+    [card {:style {:background-color "rgb(206, 238, 253)"}}
+     {:actions
+      {:children [:div {:style {:display :flex :justify-content :flex-end
+                                :gap 20
+                                :width "100%"}}
+                  [:> mui-button {:variant :contained :color :primary :start-icon
+                                  (reagent/as-element [:> ic-restaurant])}
+                   "Feed me"]
+                  [:> mui-button {:variant :contained :color :primary
+                                  :start-icon (reagent/as-element [:> ic-school])}
+                   "Educate me"]]}
+      :header
+      {:title (reagent/as-element
+               [left-right "Loan"
+                [:> mui-button {:variant :contained :color :secondary} "Customize"]])
+       :subheader "Zetetician Hacker"}
+      :content
+      {:children
+       [:> mui-grid {:container true :justify-content :center}
+        [:> mui-grid {:item true :xs 6 :lg 4}
+         [:img {:src "img/3600_3_10.webp"
+                :style {:width "100%" :border-radius "100%"}}]]]}}]]
    [:> mui-grid {:item true :xs 12 :md 12 :lg 4}
     [summary-card]]
    [:> mui-grid {:item true :xs 12  :lg 8}

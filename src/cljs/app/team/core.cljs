@@ -3,6 +3,7 @@
    ["@material-ui/core/Card" :default mui-card]
    ["@material-ui/core/CardMedia" :default mui-card-media]
    ["@material-ui/core/Grid" :default mui-grid]
+   ["@material-ui/icons/Favorite" :default ic-favorite]
    [re-frame.core :refer (subscribe)]
    [app.components.mui-utils :refer (card-content card-header)]
    [transparency.components.screen-size :as tcs]))
@@ -15,7 +16,8 @@
    {:image 1041
     :title "Myriam"
     :subtitle "The Anthropologist"
-    :details "She is David's hear."}
+    :details [:span {:style {:display :flex :align-items :center}}
+              "She is David's heart." [:> ic-favorite]]}
    {:image 1048
     :title "Loan"
     :subtitle "Product from the David and Myriam Collaboration"

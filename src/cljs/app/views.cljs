@@ -15,6 +15,7 @@
    [app.login.core]
    [app.survey.core]
    [app.team.core]
+   [app.zetetic.core]
    [cuerdas.core]
    [re-frame.core :as rf :refer (subscribe dispatch)]
    [reagent.core :as reagent]
@@ -23,6 +24,7 @@
    [transparency.components.drawer]
    [transparency.components.errors :refer (error-boundary)]
    [transparency.components.feedback :as tcf :refer (snackbar)]
+   [transparency.components.mui-utils :as tcm]
    [transparency.components.reitit :as tcr]
    [transparency.components.screen-size :as tcs]))
 
@@ -40,6 +42,17 @@
 
 (defn viz-view []
   [:div {:style {:color (colors/colors-rgb :green)}} "Analytics"])
+
+(defn attribution-view []
+  [:div {:style {:color (colors/colors-rgb :green)}}
+   [:div "Mascotte pictures from "
+    [:a {:href "https://www.freepik.com/vectors/logo"}
+     " catalyststuff"]
+    "."]
+   [:div "Videos from " "John Oliver - "
+    [:a {:href "https://www.youtube.com/user/LastWeekTonight"}
+     "Last Week Tonight"]
+    "."]])
 
 (defn home-route []
   [""
@@ -70,6 +83,18 @@
     {:name ::account
      :view app.login.core/root-panel
      :link-text "Account"}]
+   ["/attribution"
+    {:name ::attribution
+     :view attribution-view
+     :link-text "Attribution"}]
+   ["/zetetic/fallacies"
+    {:name ::fallacies
+     :view app.zetetic.core/fallacies-root
+     :link-text "Rhetological Fallacies"}]
+   ["/zetetic/cognitive-bias"
+    {:name ::cognitive-bias
+     :view app.zetetic.core/cognitive-bias-root
+     :link-text "Cognitive Bias"}]
    #_["/settings"
     {:name ::settings
      :view home-view
@@ -124,14 +149,14 @@
                            :min-height          "100vh"
                            :background-position :center
                            :background-size     :cover
-                           :background-color    :white
-                           ;; :background-color    :black
+                           :background-color    (colors/colors-rgb :graphite)
                            :overflow-x          :hidden
                            :z-index             1201
                            :width               "100%"}}
-            [:div {:style (cond-> {:height "90%"}
+            [:div {:style (cond-> {:height "100%"}
                             (and (= current-route-name :home)
-                                 (not (#{:xs :sm} @screen-size))) (merge {:overflow :hidden}))}
+                                 (not (#{:xs :sm} @screen-size)))
+                            (merge {:overflow :hidden}))}
              [app-bar]
              [snackbar :default]
              (when (-> @current-route :data :name)
@@ -143,4 +168,4 @@
                    [[:app.events/init]])
                        [(get-in @current-route [:data :view] home-view) current-route-name
                         (-> @current-route :data :link-text)]]]])
-             [footer]]]]]]))))
+             #_[footer]]]]]]))))

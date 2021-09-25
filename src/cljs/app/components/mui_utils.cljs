@@ -1,12 +1,12 @@
 (ns app.components.mui-utils
   (:require
+   [transparency.components.colors :as colors]
    ["@material-ui/core/Card" :default mui-card]
    ["@material-ui/core/CardActions" :default mui-card-actions]
    ["@material-ui/core/CardContent" :default mui-card-content]
    ["@material-ui/core/CardHeader" :default mui-card-header]
    ["@material-ui/core/Grid" :default mui-grid]
-   ["@material-ui/core/styles" :refer (createMuiTheme)]))
-
+   ["@material-ui/core/styles" :refer (createTheme)]))
 
 (defn card-header [m]
   [:> mui-card-header (dissoc m :children) (:children m)])
@@ -26,15 +26,15 @@
     [card-actions actions]]))
 
 (def custom-theme
-  (let [headline-fonts #js {:fontFamily #js ["vontobel_serif" "Roboto" "Helvetica"]}]
-    (createMuiTheme
-     #js {:palette #js {;; :primary #js {:main (colors/colors-rgb :graphite)}
-                        ;; :secondary #js {:main (colors/colors-rgb :citrine) :dark "#ca0"}
-                        :type "light"
-                        #_#_:background #js {:default (colors/colors-rgb :sand-bright)}}
+  (let [headline-fonts #js {:fontFamily #js ["Roboto" "Helvetica"]}]
+    (createTheme
+     #js {:palette #js
+          {:primary #js {:main (colors/colors-rgb :graphite)}
+           :secondary #js {:main (colors/colors-rgb :citrin)}
+           :type "light"}
           :typography #js
-          {:fontFamily #js ["vontobel_sans" "Helvetica"]
-           :p #js {:fontFamily #js ["vontobel_sans" "Helvetica"]}
+          {:fontFamily #js ["Helvetica"]
+           :p #js {:fontFamily #js ["Helvetica"]}
            :h1 headline-fonts
            :h2 headline-fonts
            :h3 headline-fonts
