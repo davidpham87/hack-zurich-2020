@@ -32,6 +32,10 @@
    {com.xtdb/xtdb-core     {:mvn/version "1.19.0-beta1"}
     org.xerial/sqlite-jdbc {:mvn/version "3.36.0.3" :scope "provided"}}}
 
+  :codox {:extra-deps {codox/codox {:mvn/version "0.10.7"}}
+          :exec-fn    codox.main/generate-docs
+          :exec-args  {:source-paths ["src"]}}
+
   :cljs
   {:extra-paths ["test"]
    :extra-deps

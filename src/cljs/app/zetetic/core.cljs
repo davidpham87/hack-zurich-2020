@@ -1,25 +1,30 @@
 (ns app.zetetic.core
   (:require
-   [app.zetetic.common :refer (section title)]
    ["@material-ui/core/Box" :default mui-box]
    ["@material-ui/core/Typography" :default mui-typography]
    [app.components.mui-utils :refer (markdown)]
    [app.zetetic.assessment]
+   [app.zetetic.common :refer (section title)]
    [cuerdas.core :as cuerdas]
-   [transparency.components.layout :as tcl]))
-
+   [re-frame.core :as rf]
+   [transparency.components.layout :as tcl]
+   [transparency.components.screen-size :as tcs]))
 
 
 (defn why? []
-  [:<>
-   [tcl/parallax {:image "img/marek-piwnicki-fRSkQPgUSHM-unsplash.webp"
-                  :style {:margin -20
-                          :padding 20}}
-    [section
-     {}
-     [title "Differentiating Truth From Lies Is A Life Saving Skill"]
-     [:div
-      [markdown "
+  (let [screen-size @(rf/subscribe [::tcs/screen-size])]
+    [:<>
+     [tcl/parallax
+      {:image "img/marek-piwnicki-fRSkQPgUSHM-unsplash.webp"
+       :style {:margin (if-not (#{:xs} screen-size) -20 0)
+               :padding-top 10
+               :padding 40}}
+      [section
+       {}
+       [title "Differentiating Truth From Lies Is A Life Saving Skill"]
+       [:div {:style {:width "100%"}}
+        [markdown
+         "
 
 It is beyond a scientific doubt that the group with the highest risk to suffer
 heavyly from COVID-19 are the unvaccinated. What is common to
@@ -37,18 +42,22 @@ accepted facts and knolwedge base.
 <br/> <br/>
 But can one ascertain that their believes is wrong?
 "]]]]
-   [tcl/parallax {:image "img/zach-lucero-qAriosuB-lY-unsplash.webp"
-                  :style {:margin -20
-                          :padding 20}}
-    [section
-     {}
-     [title "Epistemology: How Do We Know What We Know We Know"]
-     [markdown "
+     [tcl/parallax
+      {:image "img/zach-lucero-qAriosuB-lY-unsplash.webp"
+       :style {:margin (if-not (#{:xs} screen-size) -20 0)
+               :padding 40}}
+      [:div {:style {:width "100%"}}
+       [section
+        {}
+        [title "Epistemology: How Do We Know What We Know We Know"]
+        [markdown "
 
 Epistemology is
 
-    \"The theory of knowledge, especially with regard to its methods, validity,
-    and scope, and the distinction between justified belief and opinion.\"
+    \"The theory of knowledge, especially
+    with regard to its methods, validity,
+    and scope, and the distinction between
+    justified belief and opinion.\"
 
 It answers the questions:
 
@@ -56,59 +65,57 @@ It answers the questions:
 - Which methods have been failing consistently over history?
 - To which failures is one exposed when using certain methods?
 - How to weigh contradicting statements?
-"
-
-      ]]]
-   [tcl/parallax {:image "img/emily-morter-8xAA0f9yQnE-unsplash.webp"
-                  :style {:margin -20
-                          :padding 20}}
-    [section
-     {}
-     [title "Cognitives Biases: Evolutionary Efficient Unfit for the Future"]
-     [markdown "
+"]]]]
+     [tcl/parallax {:image "img/emily-morter-8xAA0f9yQnE-unsplash.webp"
+                    :style {:margin (if-not (#{:xs} screen-size) -20 0)
+                            :padding 40}}
+      [section
+       {}
+       [title "Cognitives Biases: Evolutionary Efficient Unfit for the Future"]
+       [markdown "
 Most will live without even noticing their brain will deceive them with
 cognitive biases. These blind spots are the most dangerous as they allowed the
 human species to survive and evolve in a world where most events had a single
 cause. But most of our challenges nowadays are polycausal.
 "
 
-      ]]]
-   [tcl/parallax {:image "img/dan-dimmock-3mt71MKGjQ0-unsplash.webp"
-                  :style {:margin -20
-                          :padding 20}}
-    [section
-     {}
-     [title "Rhetological Fallacies"]
-     [markdown "
+        ]]]
+     [tcl/parallax {:image "img/dan-dimmock-3mt71MKGjQ0-unsplash.webp"
+                    :style {:margin (when-not (#{:xs} screen-size) -20)
+                            :padding 40}}
+      [section
+       {}
+       [title "Rhetological Fallacies"]
+       [markdown "
 
 Fallacious argumentation are commonly accepted and the skill to detect them is not taught at school anymore.
 
 "]]]
-   [tcl/parallax {:image "img/janko-ferlic-sfL_QOnmy00-unsplash.webp"
-                  :style {:margin -20
-                          :padding 20}}
-    [section
-     {}
-     [title "Dive Deeper"]
-     (let [->youtube-video
-           (fn [url] [:iframe
-                      {:allowfullscreen "allowfullscreen",
-                       :allow
-                       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-                       :frameborder "0",
-                       :title "YouTube video player",
-                       :src url
-                       :height "315",
-                       :width "560"
-                       :style {:margin-top "1em"}}])]
-       [:<>
-        [markdown "Here is a selection of short videos that might help you make
+     [tcl/parallax {:image "img/janko-ferlic-sfL_QOnmy00-unsplash.webp"
+                    :style {:margin (when-not (#{:xs} screen-size) -20)
+                            :padding 40}}
+      [section
+       {}
+       [title "Dive Deeper"]
+       (let [->youtube-video
+             (fn [url] [:iframe
+                        {:allowfullscreen "allowfullscreen",
+                         :allow
+                         "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+                         :frameborder "0",
+                         :title "YouTube video player",
+                         :src url
+                         :height "315",
+                         :width "100%"
+                         :style {:margin-top "1em"}}])]
+         [:<>
+          [markdown "Here is a selection of short videos that might help you make
       your own opinion the aforementioned topics "]
-        [->youtube-video "https://www.youtube.com/embed/WhMGcp9xIhY"]
-        [->youtube-video "https://www.youtube.com/embed/0b_eHBZLM6U"]
-        [->youtube-video "https://www.youtube.com/embed/7VG_s2PCH_c"]
-        [->youtube-video "https://www.youtube.com/embed/gPHgRp70H8o"]
-        [->youtube-video "https://www.youtube.com/embed/xecEV4dSAXE"]])]]])
+          [->youtube-video "https://www.youtube.com/embed/WhMGcp9xIhY"]
+          [->youtube-video "https://www.youtube.com/embed/0b_eHBZLM6U"]
+          [->youtube-video "https://www.youtube.com/embed/7VG_s2PCH_c"]
+          [->youtube-video "https://www.youtube.com/embed/gPHgRp70H8o"]
+          [->youtube-video "https://www.youtube.com/embed/xecEV4dSAXE"]])]]]))
 
 (defn fallacies-root []
   [:a
