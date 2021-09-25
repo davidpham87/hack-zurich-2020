@@ -24,8 +24,7 @@
 (defn cognitive-bias []
   (let [c (a/chan)
         words (into [] cat (repeat 2 words-list))
-        state (reagent/atom {:over? false :word ""
-                             :dialog? false})]
+        state (reagent/atom {:started? false :over? false :word nil :dialog? false})]
     (a/go
       (a/<! c)
       (loop [ws words]
@@ -39,6 +38,7 @@
       [:<>
        [tcm/dialog
         {:open? (:dialog? @state)
+         :on-close #(swap! state assoc :dialog? false)
          :title "Did you behave like the mass?"
          :content
          [:div {:style {:max-width 460}}
@@ -60,17 +60,27 @@ Now what is interesting is whether you added \"apple\" to the list as it was a c
           (if-not (:over? @state)
             [:div {:style {:min-height 200 :display :grid :place-content :center}}
              [:> mui-typography {:variant :h4}
-              (str/upper-case (or (:word @state) ""))]]
+              (str/upper-case (or (:word @state) "Click on Start to begin the game."))]]
             [:div {:style {:min-height 200 :display :grid :place-content :center}}
              [:> mui-typography {:variant :h4}
               "Can you remember the words? Try to enumerate as many as possible
-           now."]]  )}
+           now." [:> mui-button {:variant :contained
+                                 :color :primary
+                                 :style {:margin-left "2em"}
+                                 :on-click #(swap! state assoc :dialog? true)}
+                  "Next"]]]  )}
          :actions
          {:children
           (if-not (:over? @state)
-            [:> mui-button {:on-click #(a/offer! c :start)}
+            [:> mui-button {:variant :contained
+                            :disabled (:started? @state)
+                            :color :primary
+                            :on-click #(do (a/offer! c :start)
+                                           (swap! state assoc :started? true))}
              "Start"]
-            [:> mui-button {:on-click #(swap! state assoc :dialog? true)}
+            [:> mui-button {:variant :contained
+                            :color :primary
+                            :on-click #(swap! state assoc :dialog? true)}
              "Next"])}}]])))
 
 (defn tabs []
@@ -89,4 +99,6 @@ Now what is interesting is whether you added \"apple\" to the list as it was a c
          [section
           {}
           [title "Relive some historical experiment"]
-          [markdown "Implement some experiment"]])])))
+          [:<>
+           [tabs]
+           [markdown "Implement some experiment"]]])])))

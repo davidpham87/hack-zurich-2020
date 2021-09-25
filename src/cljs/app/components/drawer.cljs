@@ -7,7 +7,6 @@
    ["@material-ui/icons/Dashboard" :default ic-dashboard]
    ["@material-ui/icons/Eco" :default ic-eco]
    ["@material-ui/icons/TrackChanges" :default ic-track-changes]
-   ["@material-ui/icons/Assessment" :default ic-asssessment]
    ["@material-ui/icons/NotListedLocation" :default ic-not-listed-location]
    ["@material-ui/icons/Copyright" :default ic-copyright]
    ["@material-ui/icons/Extension" :default ic-extension]
@@ -41,7 +40,7 @@
         (for [[icon+label nav-key] items]
           ^{:key nav-key}
           [mui-list-item-nested icon+label
-           {:dispatch-event [::tcr/navigate nav-key]}])]])))
+           {:dispatch-event [::navigate nav-key]}])]])))
 
 (def std-item #(vector mui-list-item-std %1
                        {:dispatch-event [::navigate %2]}))
@@ -58,9 +57,8 @@
       [[[ic-not-listed-location "Why"] (keyword ns :why)]
        [[ic-extension "Cognitive Biases"] (keyword ns :cognitive-bias)]
        [[ic-question-answer "Fallacies"] (keyword ns :fallacies)]
-       [[ic-track-changes "Interaction Quality"] (keyword ns :graham-target)]
        [[ic-battery-charging-full "Guardrails"] (keyword ns :guardrails)]]]
-     [std-item [ic-asssessment "Assess Yourself"] (keyword ns :assessment)]
+     [std-item [ic-track-changes "Assess Yourself"] (keyword ns :assessment)]
      [std-item [ic-settings "Tools"] (keyword ns :tools)]
      [:<> divider]
      [std-item [ic-dashboard "Dashboard"] (keyword ns :dashboard)]

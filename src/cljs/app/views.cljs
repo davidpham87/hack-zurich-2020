@@ -5,6 +5,7 @@
    ["@material-ui/core/Typography" :default mui-typography]
    ["@material-ui/icons/AccountCircle" :default ic-account-circle]
    ["@material-ui/icons/Help" :default ic-help]
+   ["@material-ui/icons/Menu" :default ic-menu]
    ["@material-ui/styles/ThemeProvider" :default mui-theme-provider]
    ["react" :as react]
    [app.achievements.core]
@@ -26,7 +27,8 @@
    [transparency.components.feedback :as tcf :refer (snackbar)]
    [transparency.components.mui-utils :as tcm]
    [transparency.components.reitit :as tcr]
-   [transparency.components.screen-size :as tcs]))
+   [transparency.components.screen-size :as tcs]
+   [transparency.components.scroll]))
 
 (def dashboard-view
   (reagent/adapt-react-class
@@ -51,6 +53,7 @@
       [markdown
        "The following source should be attributed for the content of this website.
 
+- Ben Goldacre - [Page](https://www.phc.ox.ac.uk/team/ben-goldacre)
 - John Oliver - [Last Week Tonight](https://www.youtube.com/user/LastWeekTonight)
 - Thomas C. Durand - [La Tronche En Bias](https://www.youtube.com/user/troncheenbiais)
 - Nathan Uyttendaele - [Chat Sceptique](https://www.youtube.com/channel/UCOuIgj0CYCXCvjWywjDbauw)
@@ -116,7 +119,7 @@
    ["/zetetic/assessment"
     {:name ::assessment
      :view app.zetetic.core/assessment-root
-     :link-text "Assessment of your own bias."}]
+     :link-text "Assessment"}]
    ["/zetetic/tools"
     {:name ::tools
      :view app.zetetic.core/tools-root
@@ -133,21 +136,28 @@
         nav-link (fn [url icon]
                    [:> mui-icon-button
                     {:size :small :on-click #(.open js/window url "_blank")}
-                    [:> icon]])]
-    [:div {:style {:margin-bottom 64 :z-index 1201}}
-     [:> transparency.components.app-bar/app-bar
-      {:style {:background-color (colors/colors-rgb :graphite)}
-       :breakpoint :sm
-       :buttons
-       (reagent/as-element
-        [:<>
-         #_[nav-button ::settings ic-settings]
-         [nav-button ::account ic-account-circle]
-         [nav-link "https://google.ch" ic-help]])
-       :menu
-       (reagent/as-element
-        [:<>
-         [transparency.components.drawer/menu-button]])}]]))
+                    [:> icon]])
+        scroll-y (subscribe [:transparency.components.scroll/y])
+        direction (subscribe [:transparency.components.scroll/direction])]
+    (fn []
+      [:div.appbar
+       {:style {:opacity (if (or (nil? @direction)
+                                 (= @direction :up)
+                                 (< @scroll-y 65)) "100%" "0%")
+                :transition "opacity 0.3s ease-in-out"}}
+       [:> transparency.components.app-bar/app-bar
+        {:position :fixed
+         :breakpoint :sm
+         :buttons
+         (reagent/as-element
+          [:<>
+           #_[nav-button ::settings ic-settings]
+           [nav-button ::account ic-account-circle]
+           [nav-link "https://google.ch" ic-help]])
+         :menu
+         (reagent/as-element
+          [:<>
+           [transparency.components.drawer/menu-button]])}]])))
 
 (defn footer []
   [:div {:style {:height 200}}])
@@ -159,35 +169,27 @@
         screen-size   (subscribe [::tcs/screen-size])]
     (fn []
       (let [current-route-name (get-in @current-route [:data :name])]
-        [:div
-         [:> mui-css-baseline]
+        [:div {:style {:display "flex"}}
          [:> mui-theme-provider {:theme custom-theme}
-          [:div {:style {:display "flex" :height "100vh" :width "100%"}}
+          [:> mui-css-baseline]
+          [:main {:style {:flex-grow           1
+                          :padding             (case @screen-size :xs 0 20)
+                          :overflow            :auto
+                          :min-height          "100vh"
+                          :background-color    (colors/colors-rgb :graphite)
+                          :z-index             0
+                          :width               "100%"}}
+           [app-bar]
            [drawer :app.views]
-           [:main {:ref   #(reset! main-ref %)
-                   :style {:flex-grow           1
-                           :padding             (case @screen-size :xs 0 20)
-                           :overflow            :auto
-                           :min-height          "100vh"
-                           :background-position :center
-                           :background-size     :cover
-                           :background-color    (colors/colors-rgb :graphite)
-                           :overflow-x          :hidden
-                           :z-index             1201
-                           :width               "100%"}}
-            [:div {:style (cond-> {:height "100%"}
-                            (and (= current-route-name :home)
-                                 (not (#{:xs :sm} @screen-size)))
-                            (merge {:overflow :hidden}))}
-             [app-bar]
-             [snackbar :default]
-             (when (-> @current-route :data :name)
-               [:> react/Suspense
-                {:fallback (reagent/as-element
-                            [:div {:style {:height "100vh" :color :white}} "Loading"])}
-                [:div {:style {:margin-bottom 0 :margin-top 60}}
-                 [(error-boundary
-                   [[:app.events/init]])
-                       [(get-in @current-route [:data :view] home-view) current-route-name
-                        (-> @current-route :data :link-text)]]]])
-             #_[footer]]]]]]))))
+           [snackbar :default]
+           [:div {:style {:display :grid
+                          :height "100%"
+                          :gri-template-rows "1fr"}}
+            (when (-> @current-route :data :name)
+              [:> react/Suspense
+               {:fallback (reagent/as-element
+                           [:div {:style {:height "100vh" :color :white}} "Loading"])}
+               [:div {:style {:margin-bottom 0 :margin-top 60}}
+                [(error-boundary [[:app.events/init]])
+                 [(get-in @current-route [:data :view] home-view) current-route-name
+                  (-> @current-route :data :link-text)]]]])]]]]))))

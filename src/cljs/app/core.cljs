@@ -7,6 +7,7 @@
    [re-frame.core :as rf]
    [reagent.dom :as dom]
    [transparency.components.screen-size :refer (window-event-listeners!)]
+   [transparency.components.scroll]
    [transparency.events.core]
    [transparency.subs]))
 
@@ -15,6 +16,7 @@
 
 (defn main []
   (rf/dispatch [::events/init])
+  (transparency.components.scroll/window-event-listeners!)
   (window-event-listeners!)
   (app.router/init-routes!)
   (mount-app))

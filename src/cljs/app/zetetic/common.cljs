@@ -19,3 +19,15 @@
                         :justify-content :center}
                        style)}]
         children))
+
+(defn ->youtube-video [url]
+  [:iframe
+   {:allowfullscreen "allowfullscreen",
+    :allow
+    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+    :frameborder "0",
+    :title "YouTube video player",
+    :src url
+    :height "315",
+    :width "100%"
+    :style {:margin-top "1em"}}])

@@ -10,15 +10,20 @@
 
 (def team-data
   [{:image 108
-    :title "David"
+    :title "David P."
     :subtitle "The Failed Mathematician"
     :details "Clojure for the win."}
    {:image 1041
+    :title "David A."
+    :subtitle "The PhD Student"
+    :details [:span {:style {:display :flex :align-items :center}}
+              "He likes to fuzz the other David."]}
+   #_{:image 1041
     :title "Myriam"
     :subtitle "The PhD Student for Sustainable Development"
     :details [:span {:style {:display :flex :align-items :center}}
               "She is David's heart." [:> ic-favorite]]}
-   {:image 1048
+   #_{:image 1048
     :title "Loan-Isaac"
     :subtitle "Product of David and Myriam's Collaboration"
     :details "Born on Valentine's Day."}])

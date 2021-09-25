@@ -1,15 +1,22 @@
 (ns app.zetetic.core
   (:require
-   ["@material-ui/core/Box" :default mui-box]
-   ["@material-ui/core/Typography" :default mui-typography]
    [app.components.mui-utils :refer (markdown)]
    [app.zetetic.assessment]
-   [app.zetetic.common :refer (section title)]
+   [app.zetetic.common :refer (section title ->youtube-video)]
+   [app.zetetic.tools]
    [cuerdas.core :as cuerdas]
    [re-frame.core :as rf]
    [transparency.components.layout :as tcl]
-   [transparency.components.screen-size :as tcs]))
+   [transparency.components.screen-size :as tcs]
+   [transparency.components.tabs :as tct]))
 
+
+(defn tabs-deep-dive []
+  [tct/tabs-global
+   {:id :deep-dive
+    :choices [{:label "Medecine" :value :medecine}
+              {:label "Cognitive Bias" :value :biases}
+              {:label "Fallacies" :value :fallacies}]}])
 
 (defn why? []
   (let [screen-size @(rf/subscribe [::tcs/screen-size])]
@@ -97,25 +104,25 @@ Fallacious argumentation are commonly accepted and the skill to detect them is n
       [section
        {}
        [title "Dive Deeper"]
-       (let [->youtube-video
-             (fn [url] [:iframe
-                        {:allowfullscreen "allowfullscreen",
-                         :allow
-                         "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-                         :frameborder "0",
-                         :title "YouTube video player",
-                         :src url
-                         :height "315",
-                         :width "100%"
-                         :style {:margin-top "1em"}}])]
-         [:<>
-          [markdown "Here is a selection of short videos that might help you make
+       [:<>
+        [markdown "Here is a selection of short videos that might help you make
       your own opinion the aforementioned topics "]
-          [->youtube-video "https://www.youtube.com/embed/WhMGcp9xIhY"]
-          [->youtube-video "https://www.youtube.com/embed/0b_eHBZLM6U"]
-          [->youtube-video "https://www.youtube.com/embed/7VG_s2PCH_c"]
-          [->youtube-video "https://www.youtube.com/embed/gPHgRp70H8o"]
-          [->youtube-video "https://www.youtube.com/embed/xecEV4dSAXE"]])]]]))
+        [tabs-deep-dive]
+        (case @(rf/subscribe [::tct/tab-global :deep-dive])
+          :biases
+          [:<>
+           [->youtube-video "https://www.youtube.com/embed/videoseries?list=PLceYkF8JBqYTREZFAndpNCXbEt8e4CYXG"]
+           [->youtube-video "https://www.youtube.com/embed/videoseries?list=PLceYkF8JBqYRSX5delfymBsy3BddpyW1L"]
+           [->youtube-video "https://www.youtube.com/embed/videoseries?list=PLceYkF8JBqYQ-G2uJrz7J9p6laBJPFCSS"]]
+          :fallacies
+          [:<>
+           [->youtube-video "https://www.youtube.com/embed/WhMGcp9xIhY"]
+           [->youtube-video "https://www.youtube.com/embed/0b_eHBZLM6U"]
+           [->youtube-video "https://www.youtube.com/embed/xecEV4dSAXE"]]
+          [:<>
+           [->youtube-video "https://embed.ted.com/talks/ben_goldacre_battling_bad_science"]
+           [->youtube-video "https://www.youtube.com/embed/7VG_s2PCH_c"]
+           [->youtube-video "https://www.youtube.com/embed/gPHgRp70H8o"]])]]]]))
 
 (defn fallacies-root []
   [:a
@@ -144,9 +151,8 @@ Fallacious argumentation are commonly accepted and the skill to detect them is n
 "
     ]])
 
-(def assessment-root app.zetetic.assessment/assessment-root)
+(defn assessment-root []
+  [app.zetetic.assessment/assessment-root])
 
 (defn tools-root []
-  [section
-   {}
-   [markdown "make forms about cible de graham, fallacies, potential bias, games"]])
+  [app.zetetic.tools/tools-root])
