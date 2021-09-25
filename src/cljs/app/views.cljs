@@ -111,15 +111,15 @@
      :link-text "Interaction Quality - Graham's Target"}]
    ["/zetetic/guardrails"
     {:name ::guardrails
-     :view app.home.core/root
+     :view app.zetetic.core/guardrails-root
      :link-text "How to Doubt Efficiently"}]
-   ["/zetetic/assesement"
+   ["/zetetic/assessment"
     {:name ::assessment
-     :view app.home.core/root
-     :link-text "How to Doubt Efficiently"}]
+     :view app.zetetic.core/assessment-root
+     :link-text "Assessment of your own bias."}]
    ["/zetetic/tools"
     {:name ::tools
-     :view app.home.core/root
+     :view app.zetetic.core/tools-root
      :link-text "Tools to Reason"}]])
 
 (def routes
