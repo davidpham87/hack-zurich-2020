@@ -4,6 +4,16 @@ author: David Pham
 
 ---
 
+# Disclaimer
+
+I wanted to create a project that would solve a real pain point that I
+experienced everyday, at work, online and in private:
+
+We lost our ability to differentiating between reality and alternative facts,
+to acknowledging our limitation, and to being convinced to change opinion.
+
+This leads us to following unhealthy behaviors, to being more fragile
+(physically and mentally) and to being less efficient.
 
 # Punch Line
 
@@ -11,9 +21,8 @@ author: David Pham
     define our behavior and our life.
 
 It defines how we care about our health, how resilient we are in front of
-adversity and how we work with another.
+adversity and how we work with another. The fundamental question is then
 
-The fundamental question is then
 
     How do we know if our knowledge is a faithful represenation of reality?
 
