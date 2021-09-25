@@ -11,15 +11,15 @@
 
 (defn tabs []
   [tct/tabs-global
-   {:id ::assessment
+   {:id :assessment
     :choices tabs-choices}])
 
 (defn assessment-root []
-  (let [tab (rf/subscribe [::tct/tabs-global ::assessment])]
+  (let [tab (rf/subscribe [::tct/tab-global :assessment])]
     (fn []
       [:<>
        [tabs]
-       (case @tab
+       #_(case @tab
          :cognitive-bias [:div "Hello"]
          :fallacies [:div "Hello Fallacies"]
          [section

@@ -60,7 +60,7 @@
        [[ic-question-answer "Fallacies"] (keyword ns :fallacies)]
        [[ic-track-changes "Interaction Quality"] (keyword ns :graham-target)]
        [[ic-battery-charging-full "Guardrails"] (keyword ns :guardrails)]]]
-     [std-item [ic-asssessment "Assess Yourself"] (keyword ns :assesement)]
+     [std-item [ic-asssessment "Assess Yourself"] (keyword ns :assessment)]
      [std-item [ic-settings "Tools"] (keyword ns :tools)]
      [:<> divider]
      [std-item [ic-dashboard "Dashboard"] (keyword ns :dashboard)]

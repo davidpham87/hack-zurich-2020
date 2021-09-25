@@ -113,9 +113,9 @@
     {:name ::guardrails
      :view app.zetetic.core/guardrails-root
      :link-text "How to Doubt Efficiently"}]
-   ["/zetetic/assesement"
+   ["/zetetic/assessment"
     {:name ::assessment
-     :view app.home.core/root
+     :view app.zetetic.core/assessment-root
      :link-text "Assessment of your own bias."}]
    ["/zetetic/tools"
     {:name ::tools
