@@ -1,11 +1,7 @@
 (ns app.zetetic.common
   (:require
    ["@material-ui/core/Box" :default mui-box]
-   ["@material-ui/core/Typography" :default mui-typography]
-   [app.components.mui-utils :refer (markdown)]
-   [app.zetetic.assessment]
-   [cuerdas.core :as cuerdas]
-   [transparency.components.layout :as tcl]))
+   ["@material-ui/core/Typography" :default mui-typography]))
 
 (defn title [s]
   [:div {:style {:width "80%" :margin-bottom "1em"}}
