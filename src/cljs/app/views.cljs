@@ -2,6 +2,7 @@
   (:require
    ["@material-ui/core/CssBaseline" :default mui-css-baseline]
    ["@material-ui/core/IconButton" :default mui-icon-button]
+   ["@material-ui/core/Typography" :default mui-typography]
    ["@material-ui/icons/AccountCircle" :default ic-account-circle]
    ["@material-ui/icons/Help" :default ic-help]
    ["@material-ui/icons/Settings" :default ic-settings]
@@ -10,7 +11,7 @@
    [app.achievements.core]
    [app.components.colors :as colors]
    [app.components.drawer :refer (drawer)]
-   [app.components.mui-utils :refer (custom-theme)]
+   [app.components.mui-utils :refer (custom-theme markdown)]
    [app.home.core]
    [app.login.core]
    [app.survey.core]
@@ -38,31 +39,38 @@
    (lazy-component app.analytics.core/root)))
 
 (defn home-view []
-  [:div {:style {:color (colors/colors-rgb :green)}} "Neo the Doubtful"])
+  [:div {:style {:color (colors/colors-rgb :green)}} "Neo The Doubtful"])
 
 (defn viz-view []
   [:div {:style {:color (colors/colors-rgb :green)}} "Analytics"])
 
 (defn attribution-view []
-  [:div {:style {:color (colors/colors-rgb :green)}}
-   [:div "Mascotte pictures from "
-    [:a {:href "https://www.freepik.com/vectors/logo"}
-     " catalyststuff"]
-    "."]
-   [:div "Videos from " "John Oliver - "
-    [:a {:href "https://www.youtube.com/user/LastWeekTonight"}
-     "Last Week Tonight"]
-    "."]])
+  [tcm/card
+   {:header {:title "Bibliography"}
+    :content
+    {:children
+     [:<>
+      [markdown
+       "The following source should be attributed for the content of this website.
+
+- John Oliver - [Last Week Tonight](https://www.youtube.com/user/LastWeekTonight)
+- Thomas C. Durand - [La Tronche En Bias](https://www.youtube.com/user/troncheenbiais)
+- Nathan Uyttendaele - [Chat Sceptique](https://www.youtube.com/channel/UCOuIgj0CYCXCvjWywjDbauw)
+- Pictures from [catalyststuff](https://www.freepik.com/vectors/logo)
+"]]}}])
+
+;; https://www.youtube.com/watch?v=Ns1zx10kTKU Comment débloquer un débat (et en devenir le héros !)
+;; https://www.youtube.com/watch?v=ohU1tEwxOSE&t=31s Ne pas traiter l'autre de petite merde
 
 (defn home-route []
   [""
    ["/" {:name ::home
          :view app.home.core/root
-         :link-text "Neo the Doubtful"}]
+         :link-text "Neo The Doubtful"}]
    ["/dashboard"
     {:name ::dashboard
      :view dashboard-view
-     :link-text "Neo the Doubtful"}]
+     :link-text "Neo The Doubtful"}]
    ["/analytics"
     {:name ::analytics
      :view analytics-view
@@ -87,6 +95,10 @@
     {:name ::attribution
      :view attribution-view
      :link-text "Attribution"}]
+   ["/zetetic/why"
+    {:name ::why
+     :view app.home.core/root
+     :link-text "Why?"}]
    ["/zetetic/fallacies"
     {:name ::fallacies
      :view app.zetetic.core/fallacies-root
@@ -95,10 +107,22 @@
     {:name ::cognitive-bias
      :view app.zetetic.core/cognitive-bias-root
      :link-text "Cognitive Bias"}]
-   #_["/settings"
-    {:name ::settings
-     :view home-view
-     :link-text "Settings"}]])
+   ["/zetetic/graham-target"
+    {:name ::graham-target
+     :view app.home.core/root
+     :link-text "Interaction Quality - Graham's Target"}]
+   ["/zetetic/guardrails"
+    {:name ::guardrails
+     :view app.home.core/root
+     :link-text "How to Doubt Efficiently"}]
+   ["/zetetic/assesement"
+    {:name ::assessment
+     :view app.home.core/root
+     :link-text "How to Doubt Efficiently"}]
+   ["/zetetic/tools"
+    {:name ::tools
+     :view app.home.core/root
+     :link-text "Tools to Reason"}]])
 
 (def routes
   ["" (home-route)])

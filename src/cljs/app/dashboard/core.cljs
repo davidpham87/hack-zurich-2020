@@ -11,50 +11,65 @@
    [reagent.core :as reagent]
    [transparency.components.charts.indicator
     :refer (indicator-chart score->color)]
-   [transparency.components.charts.line :refer (line-chart-raw)]))
+   [transparency.components.charts.line :refer (line-chart-raw)]
+   [transparency.components.charts.dot-plot :as tccd]))
 
 (defn indicators []
-  (let [data (repeatedly 5 #(rand-int 100))
+  (let [data (repeatedly 5 #(vector (rand-int 100) (rand-int 100)))
         plot-colors (mapv #(-> (* / % 100) score->color) data)
-        cols ["Speak Time" "Rotation" "Emotions" "Reactions" "Ratings"]]
-    [:> mui-grid {:container :true :spacing 4 :align-items :stretch}
-     (for [[v title color] (map vector data cols plot-colors)]
-       ^{:key (gensym "emotion-id")}
-       [:> mui-grid {:item :true :xs 12 :md 4 :lg 4}
-        [indicator-chart
-         {:value v
-          :range [0 100]
-          :color color
-          :title title
-          :layout {:height 220
-                   :margin {:l 0 :t 0 :b 0 :r 0}}}]])]))
+        cols ["Cognitive Bias" "Fallacies" "Interaction Quality" "Tools" "Ratings"]]
+    [card {:style {:background-color (colors/colors-rgb :graphite)}
+           :elevation 0 :square true}
+     {:content
+      {:children
+       [:div {:style {:display :grid :grid-template-columns "minmax(auto, 20%) 1fr"
+                      :align-items :center
+                      :gap 20}}
+        [:> mui-typography {:style {:color :white}} "Team Scientific Reasoning Score"]
+        [tccd/dot-plot
+         {:date-range {:start-date "2021-01" :end-date "2021-08"}
+          :height 250 :range [0 100]
+          :labels cols
+          :title "Scientific Reasoning Score"}
+         (mapv #(-> {:value %1 :label %2}) data cols)]]}}]))
 
 (defn summary-card []
-  (let [bc-color (colors/colors-rgb :green-light)]
+  (let [bc-color (colors/colors-rgb :graphite)]
     [card
-     {:square true
-      :style {:height "100%" :background-color bc-color :color :white
-              :display :flex :flex-direction :column}}
-     {:header {:title "Total Growth Points"}
+     {:square    true
+      :elevation 0
+      :style     {:height  "100%" :background-color bc-color :color :white
+                  :display :flex  :flex-direction   :column}}
+     {:header  {:title "Total Growth Points"}
       :content {:style {:flex 1}
                 :children
                 [:div {:style {:display :flex :justify-content :center :align-items :center
-                               :height "100%"}}
+                               :color   (colors/colors-rgb :green-light-bright)
+                               :height  "100%"}}
                  [:> mui-typography {:variant :h4} "1250 Growth Points"]]}
       :actions {:children
-                [:<> [:> mui-divider] [left-right"Last session" "+120"]]}
-      :style {:height "100%"}}]))
+                [:<>
+                 [:> mui-divider]
+                 [left-right
+                  "Last session"
+                  [:div {:style {:color (colors/colors-rgb :green-light-bright)}} "+120"]]]}
+      :style   {:height "100%"}}]))
 
 (defn score-over-time []
   [:div {:style {:margin-top 10}}
    [line-chart-raw
-    [{:x ["2020-01-01" "2020-02-01" "2020-03-01" "2020-04-01" "2020-05-01" "2020-06-01"]
-      :y [10 60 30 90 70 80 100]
-      :name "Team Spirit"
-      :fill :tozeroy
-      :fillcolor (colors/colors-hex :green-light-bright)
-      :line {:shape :spline
-             :color (colors/colors-hex :green-light-bright)}}]]])
+    [{:x         ["2021-01-01" "2021-02-01" "2021-03-01" "2021-04-01" "2021-05-01" "2021-06-01"]
+      :y         [10 60 30 90 70 80 100]
+      :name      "Team Scientific Reasoning Score"
+      :fill      :tozeroy
+      :fillcolor :lightblue
+      :line      {:shape :spline
+                  :color :lightblue}}]
+    {:layout {:margin        {:r 30 :b 30 :l 50}
+              :font          {:color :white :family "helvetica"}
+              :paper_bgcolor "rgba(0,0,0,0)"
+              :plot_bgcolor "rgba(0,0,0,0)"
+              :xaxis {:gridcolor "rgba(255,255,255,0.3)"}}}]])
 
 (defn root []
   [:> mui-grid {:container true :style {:padding 20} :spacing 2
@@ -73,7 +88,7 @@
                    "Educate me"]]}
       :header
       {:title (reagent/as-element
-               [left-right "Loan"
+               [left-right "Loan-Isaac"
                 [:> mui-button {:variant :contained :color :secondary} "Customize"]])
        :subheader "Zetetician Hacker"}
       :content
@@ -84,7 +99,7 @@
                 :style {:width "100%" :border-radius "100%"}}]]]}}]]
    [:> mui-grid {:item true :xs 12 :md 12 :lg 4}
     [summary-card]]
-   [:> mui-grid {:item true :xs 12  :lg 8}
+   [:> mui-grid {:item true :xs 12 :lg 8}
     [indicators]]
-   [:> mui-grid {:item true :xs 12  :lg 4}
+   [:> mui-grid {:item true :xs 12 :lg 12}
     [score-over-time]]])

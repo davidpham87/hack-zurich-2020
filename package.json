@@ -47,7 +47,6 @@
     "karma-junit-reporter": "^1.2.0",
     "markdown-to-jsx": "^6.11.4",
     "marked": "^1.1.1",
-    "motion": "6.0.0",
     "plotly.js": "^1.55.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

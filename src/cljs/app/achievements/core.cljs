@@ -1,5 +1,6 @@
 (ns app.achievements.core
   (:require
+   ["@material-ui/core/Typography" :default mui-typography]
    ["@material-ui/core/Card" :default mui-card]
    ["@material-ui/core/CardMedia" :default mui-card-media]
    ["@material-ui/core/Grid" :default mui-grid]
@@ -7,19 +8,21 @@
 
 (def achievements-data
   [{:image 1019
-    :title "Fertilizer Boost"}
+    :title "Reading Skill Booster"}
    {:image 102
-    :title "Golden Watering"}])
+    :title "Crazy Doubt Stars"}
+   {:image 110
+    :title "Hidden Biases Lighter"}])
 
 (defn achievement-card [{:keys [image title]}]
-  [:> mui-card
-   [:> mui-grid {:container true}
-    [:> mui-grid {:item true :xs 3}
-     [:> mui-card-media
-      {:style {:height "100%"}
-       :image (str "https://picsum.photos/id/" image "/150")}]]
-    [:> mui-grid {:item true :xs 9}
-    [card-content {:children title}]]]])
+  [:> mui-card {:style {:display :flex :align-items :center}}
+   [:> mui-card-media
+    {:style {:height 100
+             :width 100
+             :margin 5
+             :border-radius "100%"}
+     :image (str "https://picsum.photos/id/" image "/100")}]
+   [card-content {:children [:> mui-typography {:variant :h6} title]}]])
 
 (defn root []
   [:<>

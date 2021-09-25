@@ -8,7 +8,6 @@
    ["@material-ui/icons/Eco" :default ic-eco]
    ["@material-ui/icons/TrackChanges" :default ic-track-changes]
    ["@material-ui/icons/Assessment" :default ic-asssessment]
-   ["@material-ui/icons/Forum" :default ic-forum]
    ["@material-ui/icons/NotListedLocation" :default ic-not-listed-location]
    ["@material-ui/icons/Copyright" :default ic-copyright]
    ["@material-ui/icons/Extension" :default ic-extension]
@@ -56,18 +55,20 @@
     [:<>
      [std-item [ic-home "Home"] (keyword ns :home)]
      [nested-items [ic-live-help "Zetetic"] (keyword ns :home)
-      [[[ic-not-listed-location "Why"] (keyword ns :dashboard)]
+      [[[ic-not-listed-location "Why"] (keyword ns :why)]
        [[ic-extension "Cognitive Biases"] (keyword ns :cognitive-bias)]
        [[ic-question-answer "Fallacies"] (keyword ns :fallacies)]
-       [[ic-track-changes "Interaction Quality"] (keyword ns :interaction-quality)]
+       [[ic-track-changes "Interaction Quality"] (keyword ns :graham-target)]
        [[ic-battery-charging-full "Guardrails"] (keyword ns :guardrails)]]]
      [std-item [ic-asssessment "Assess Yourself"] (keyword ns :assesement)]
+     [std-item [ic-settings "Tools"] (keyword ns :tools)]
      [:<> divider]
      [std-item [ic-dashboard "Dashboard"] (keyword ns :dashboard)]
      [std-item [ic-account-tree "Analytics"] (keyword ns :analytics)]
      [std-item [ic-eco "Survey"] (keyword ns :survey)]
      [std-item [ic-star "Achievements"] (keyword ns :achievements)]
      [std-item [ic-group "Team Members"] (keyword ns :team-members)]
+     [:<> divider]
      [std-item [ic-copyright "Attribution"] (keyword ns :attribution)]]))
 
 (defn drawer [s]

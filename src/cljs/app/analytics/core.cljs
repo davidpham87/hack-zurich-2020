@@ -64,7 +64,7 @@
 (defn plot [tab data]
   [scatter-chart-raw
    [{:x (random 5)
-     :y ["David" "Myriam" "Loan"]
+     :y ["David" "Myriam" "Loan-Isaac"]
      :type :bar
      :orientation :h
      :name "Score"

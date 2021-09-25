@@ -5,10 +5,11 @@
    ["@material-ui/core/Grid" :default mui-grid]
    ["@material-ui/core/Typography" :default mui-typography]
    ["@material-ui/icons/Dashboard" :default ic-dashboard]
+   ["@material-ui/icons/NotListedLocation" :default ic-not-listed-location]
    ["@material-ui/icons/Person" :default ic-person]
    [re-frame.core :as rf]
-   [transparency.components.reitit :as tcr]
-   [reagent.core :as reagent]))
+   [reagent.core :as reagent]
+   [transparency.components.reitit :as tcr]))
 
 (defn center [x]
   [:div {:style {:display :flex :justify-content :center}}
@@ -26,18 +27,43 @@
                    :overflow         :hidden}
      :spacing     2
      :align-items :stretch :justify :space-around}
+    [:> mui-grid {:item true :xs 12}
+     [center
+      [:> mui-typography {:variant :h2 :style {:text-align :center
+                                               :font-weight 700
+                                               :color :white}}
+       "The Art of Scientific Reasoning"]]
+     [center
+      [:> mui-typography {:variant :h4 :style {:text-align :center
+                                               :font-weight 700
+                                               :color :white
+                                               :margin-top "1em"}}
+       "Skill For Better Resiliency, Health and Relationships."]]]
     [:> mui-grid {:item true :xs 10 :sm 8 :lg 4}
      [center
       [:img {:src "img/monkey.webp" :style {:width         "100%"
                                             :display       :flex
                                             :border-radius "100%"}}]]]
-    [:> mui-grid {:item true :xs 6}
-     [center
-      [:> mui-button {:color    :primary :start-icon (reagent/as-element [:> ic-dashboard])
-                      :on-click #(rf/dispatch [::tcr/navigate :app.views/dashboard])} "Enter"]]]
+    #_[:> mui-grid {:item true :xs 12 :sm 4 :lg 8}]
+    [:> mui-grid {:container true :item true :xs 12}
+     [:> mui-grid {:item true :xs 4}
+      [center
+       [:> mui-button
+        {:color      :primary
+         :start-icon (reagent/as-element [:> ic-not-listed-location])
+         :on-click   #(rf/dispatch [::tcr/navigate :app.views/why])}
+        "Why?"]]]
 
-    [:> mui-grid {:item true :xs 6}
-     [center
-      [:> mui-button {:color      :primary
-                      :on-click   #(rf/dispatch [::tcr/navigate :app.views/account])
-                      :start-icon (reagent/as-element [:> ic-person])} "Login"]]]]])
+     [:> mui-grid {:item true :xs 4}
+      [center
+       [:> mui-button
+        {:color      :primary
+         :start-icon (reagent/as-element [:> ic-dashboard])
+         :on-click   #(rf/dispatch [::tcr/navigate :app.views/dashboard])}
+        "Enter"]]]
+
+     [:> mui-grid {:item true :xs 4}
+      [center
+       [:> mui-button {:color      :primary
+                       :on-click   #(rf/dispatch [::tcr/navigate :app.views/account])
+                       :start-icon (reagent/as-element [:> ic-person])} "Login"]]]]]])

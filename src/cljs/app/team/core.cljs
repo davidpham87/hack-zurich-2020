@@ -19,7 +19,7 @@
     :details [:span {:style {:display :flex :align-items :center}}
               "She is David's heart." [:> ic-favorite]]}
    {:image 1048
-    :title "Loan"
+    :title "Loan-Isaac"
     :subtitle "Product from the David and Myriam Collaboration"
     :details "Born on Valentine's Day."}])
 
