@@ -13,7 +13,7 @@
 
 (defn section [{:keys [style]} & children]
   (into [:div {:style (merge
-                       {:height "80vh" :color :white
+                       {:min-height "80vh" :color :white
                         :margin-top "1em"
                         :grid-template-columns "clamp(460px, 100%, 600px)"
                         :grid-template-rows "1fr auto"
@@ -97,7 +97,7 @@ cause. But most of our challenges nowadays are polycausal.
 Fallacious argumentation are commonly accepted and the skill to detect them is not taught at school anymore.
 
 "]]]
-   [tcl/parallax {:image "img/dan-dimmock-3mt71MKGjQ0-unsplash.webp"
+   [tcl/parallax {:image "img/janko-ferlic-sfL_QOnmy00-unsplash.webp"
                   :style {:margin -20
                           :padding 20}}
     [section
@@ -132,3 +132,31 @@ Fallacious argumentation are commonly accepted and the skill to detect them is n
   [:a
    {:href "https://www.informationisbeautiful.net/visualizations/rhetological-fallacies/"}
    "www.informationisbeautiful.net"])
+
+(defn guardrails-root []
+  [section
+   {}
+   [title "Which Tools to Use to Preventing from Believing in Falsehoods"]
+   [markdown "
+
+# Scientific Studies
+
+- Mention different qualities, biases, type of studies (observational, control case, double blinded case studies)
+
+# Quality of Proofs
+
+- Anecdotical
+- etc, until scientific communities acceptance.
+"
+    ]])
+
+(defn assessment-root []
+  [section
+   {}
+   [title "Relive some historical experiment"]
+   [markdown "Implement some experiment"]])
+
+(defn tools-root []
+  [section
+   {}
+   [markdown "make forms about cible de graham, fallacies, potential bias, games"]])
