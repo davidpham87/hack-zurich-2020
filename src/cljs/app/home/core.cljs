@@ -35,7 +35,7 @@
                                              :font-weight 700
                                              :color :white
                                              :margin-top "1em"}}
-     "Scientific Reasoning as Skill For Better Resiliency, Health and Relationships."]]
+     "Scientific Reasoning as Skill For Better Health, Resiliency and Relationships."]]
    [:> mui-grid
     {:container   true
      :style       {:background-color "rgb(132, 177, 255)"

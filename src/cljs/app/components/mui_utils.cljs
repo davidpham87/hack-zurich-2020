@@ -10,6 +10,7 @@
    ["@material-ui/core/styles" :refer (createTheme)]
    ["markdown-to-jsx" :default react-markdown]
    [reagent.core :as reagent]
+   [transparency.components.mui-utils]
    [transparency.components.mui-utils :refer (with-styles)]
    [transparency.components.colors :as colors]))
 
@@ -65,12 +66,13 @@
       (reagent/as-element
        [:> mui-typography {:gutterBottom true
                            :variant variant :component variant
+                           :style {:font-weight (when-not paragraph 700)}
                            :paragraph paragraph} props]))))
 
 (def options
   {:overrides
-   {:h1 {:component (typography true "h4" false)}
-    :h2 {:component (typography true "h6" false)}
+   {:h1 {:component (typography true "h3" false)}
+    :h2 {:component (typography true "h5" false)}
     :h3 {:component (typography true "subtitle1" false)}
     :h4 {:component (typography true "caption" true)}
     :p {:component (typography false "body1" true)}

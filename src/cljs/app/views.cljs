@@ -5,7 +5,6 @@
    ["@material-ui/core/Typography" :default mui-typography]
    ["@material-ui/icons/AccountCircle" :default ic-account-circle]
    ["@material-ui/icons/Help" :default ic-help]
-   ["@material-ui/icons/Settings" :default ic-settings]
    ["@material-ui/styles/ThemeProvider" :default mui-theme-provider]
    ["react" :as react]
    [app.achievements.core]
@@ -96,7 +95,7 @@
      :link-text "Attribution"}]
    ["/zetetic/why"
     {:name ::why
-     :view app.home.core/root
+     :view app.zetetic.core/why?
      :link-text "Why?"}]
    ["/zetetic/fallacies"
     {:name ::fallacies
