@@ -18,23 +18,24 @@
 
 (defn root []
   [:div {:style {:margin           -20
-                 :height           "100vh"
+                 :padding-bottom   20
+                 :min-height       "100vh"
                  :background-color "rgb(132, 177, 255)"
                  :overflow         :hidden}}
    [:div {:style {:background-color (colors/colors-rgb :graphite)
-                  :padding-left 20
-                  :width "90%"
-                  :padding-top "2em"
-                  :padding-bottom "2em"
-                  :margin-top "3em"}}
-    [:> mui-typography {:variant :h2 :style {:text-align :left
+                  :padding-left     20
+                  :width            "90%"
+                  :padding-top      "2em"
+                  :padding-bottom   "2em"
+                  :margin-top       "3em"}}
+    [:> mui-typography {:variant :h2 :style {:text-align  :left
                                              :font-weight 700
-                                             :color :white}}
+                                             :color       :white}}
      "The Art of Skepticism"]
-    [:> mui-typography {:variant :h4 :style {:text-align :left
+    [:> mui-typography {:variant :h4 :style {:text-align  :left
                                              :font-weight 700
-                                             :color :white
-                                             :margin-top "1em"}}
+                                             :color       :white
+                                             :margin-top  "1em"}}
      "Scientific Reasoning as Skill For Better Health, Resiliency and Relationships."]]
    [:> mui-grid
     {:container   true
