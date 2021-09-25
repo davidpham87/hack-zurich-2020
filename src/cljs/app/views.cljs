@@ -29,7 +29,6 @@
    [transparency.components.reitit :as tcr]
    [transparency.components.screen-size :as tcs]))
 
-
 (def dashboard-view
   (reagent/adapt-react-class
    (lazy-component app.dashboard.core/root)))

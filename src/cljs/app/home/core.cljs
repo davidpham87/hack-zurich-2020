@@ -9,6 +9,7 @@
    ["@material-ui/icons/Person" :default ic-person]
    [re-frame.core :as rf]
    [reagent.core :as reagent]
+   [transparency.components.colors :as colors]
    [transparency.components.reitit :as tcr]))
 
 (defn center [x]
@@ -20,6 +21,21 @@
                  :height           "100vh"
                  :background-color "rgb(132, 177, 255)"
                  :overflow         :hidden}}
+   [:div {:style {:background-color (colors/colors-rgb :graphite)
+                  :padding-left 20
+                  :width "90%"
+                  :padding-top "2em"
+                  :padding-bottom "2em"
+                  :margin-top "3em"}}
+    [:> mui-typography {:variant :h2 :style {:text-align :left
+                                             :font-weight 700
+                                             :color :white}}
+     "The Art of Skepticism"]
+    [:> mui-typography {:variant :h4 :style {:text-align :left
+                                             :font-weight 700
+                                             :color :white
+                                             :margin-top "1em"}}
+     "Scientific Reasoning as Skill For Better Resiliency, Health and Relationships."]]
    [:> mui-grid
     {:container   true
      :style       {:background-color "rgb(132, 177, 255)"
@@ -27,18 +43,7 @@
                    :overflow         :hidden}
      :spacing     2
      :align-items :stretch :justify :space-around}
-    [:> mui-grid {:item true :xs 12}
-     [center
-      [:> mui-typography {:variant :h2 :style {:text-align :center
-                                               :font-weight 700
-                                               :color :white}}
-       "The Art of Scientific Reasoning"]]
-     [center
-      [:> mui-typography {:variant :h4 :style {:text-align :center
-                                               :font-weight 700
-                                               :color :white
-                                               :margin-top "1em"}}
-       "Skill For Better Resiliency, Health and Relationships."]]]
+    [:> mui-grid {:item true :xs 12}]
     [:> mui-grid {:item true :xs 10 :sm 8 :lg 4}
      [center
       [:img {:src "img/monkey.webp" :style {:width         "100%"
