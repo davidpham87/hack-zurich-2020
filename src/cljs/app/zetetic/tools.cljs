@@ -1,14 +1,15 @@
 (ns app.zetetic.tools
   (:require
+   ["@material-ui/core/Fade" :default mui-fade]
    ["@material-ui/core/Tooltip" :default mui-tooltip]
    ["@material-ui/core/Typography" :default mui-typography]
-   ["@material-ui/core/Fade" :default mui-fade]
-   [reagent.core :as reagent]
    [app.components.mui-utils :refer (markdown)]
    [app.zetetic.common :refer (section title ->youtube-video)]
    [re-frame.core :as rf]
+   [reagent.core :as reagent]
    [transparency.components.colors :as colors]
    [transparency.components.mui-utils :as tcm]
+   [transparency.components.scroll]
    [transparency.components.tabs :as tct]))
 
 (defn tooltip-dynamic [{:keys [background-color color]}]
