@@ -7,7 +7,7 @@ author: David Pham
 # Disclaimer
 
 I wanted to create a project that would solve a real pain point that I
-experienced everyday, at work, online and in private:
+experienced everyday, at work, online and in my private:
 
 We lost our ability to differentiating between reality and alternative facts,
 to acknowledging our limitation, and to being convinced to change opinion.
