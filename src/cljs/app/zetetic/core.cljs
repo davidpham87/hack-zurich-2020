@@ -133,21 +133,95 @@ products, but the merit of the arguments are never discussed.
   [app.zetetic.cognitive-bias/cognitive-bias-root])
 
 (defn guardrails-root []
-  [section
-   {}
-   [title "Which Tools to Use to Preventing from Believing in Falsehoods"]
-   [markdown "
+  (let [screen-size @(rf/subscribe [::tcs/screen-size])]
+    (fn []
+      [tcl/parallax {:image "img/janko-ferlic-sfL_QOnmy00-unsplash.webp"
+                     :style {:margin (when-not (#{:xs} screen-size) -20)
+                             :padding 40}}
+       [section
+        {}
+        [title "How to Fight our Bias"]
+        [markdown "
+
+The first step is to recognize that not all proofs have the same weight.
+
+<br/>
+<br/>
+
+# Burden of Proof
+
+The first step is to recognize who need to support the burden of proof. Science
+will never be able to state that a phenomenon does not exist, it can guarantee
+that it has either extremely low probably to occur, or that if it occurs it
+will be almost undetectable. Proving the impossible is an impossible standard.
+
+<br/>
+
+Hence, when someone claims the existence of something, the burden of proof is
+on the shoulder of the one claiming the existence and not the other way around.
+
+<br/>
+<br/>
+
 
 # Scientific Studies
 
-- Mention different qualities, biases, type of studies (observational, control case, double blinded case studies)
+There exist myriad of studies and not all are equal. There might be several
+level at which a study might go south, but their designs usually define their
+reliability.
+
+- Double Blinded Case Studies are the most reliable and the strongest type of
+studies. The designer of the experiment selects a representative share of the
+population and split in two groups randomly. Then the patient and those who
+administer the intervation ignore in which group the patient belongs.
+
+- Observational studies: these studies basically report what they observes, and
+the issue here is that many factors can be confounded and hence it is more
+difficult to extract genearlized information from them. In an observational,
+the patients could all have a common factor that is the the studied effect.
+
+- Control-case studies, in this case, we base our study on people who naturally
+  had the intervation (usually, it is a heavy condition and it would be
+  unethical to administer it to healthy people).
+
+There is a fourth category, that is usually more powerful and more informative:
+the meta-analysis. The meta-analysis tries to select all the papers on a
+subject and filter the studies from which one can extract meaningful
+information and performs an analysis again. These meta-analysis have shown the
+most reliable conclusion as adding studding usually reduce the statistical
+noise.
+
+<br/>
+<br/>
 
 # Quality of Proofs
 
-- Anecdotical
-- etc, until scientific communities acceptance.
+People usually ignore the source of information, but it has its importance, not
+all proofs are equal. We provided a ranking that can help you weigh the balance
+when in doubt.
+
+1. Rumor
+2. Witness
+3. Anecdotical Evidence
+4. Common Knowledge
+5. Opinion
+6. Expertise
+7. Peer Reviewed Published Scientific Studies
+8. Scientific Consensus
+
+# Little Tricks to Assess Arguments
+
+- Using the Bayesian formula as support, one should always require
+  extraordinary evidence for extraordinary claims.
+
+- Proofs by contradiction. Still using Bayesian formula, accept that the
+  statement as true and try predict the consequences and check whether the
+  consequences still make a coherent world. For example, homeopathy were to
+  work, we would basically need to rethink and update the entirety of physics,
+  biology and chemistry, meaning it is unlikely that homeopathy works.
+
 "
-    ]])
+         ]]])))
 
 (defn assessment-root []
   [app.zetetic.assessment/assessment-root])
