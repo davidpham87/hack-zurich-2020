@@ -67,6 +67,9 @@ them without even thinking, just because you were exposed to the idea.
 The same idea goes for sport and making connection. This is fairly well
 explained [here](https://en.wikipedia.org/wiki/Nudge_theory).
 
+The reason why that nudging might work is that it operates on the part of the
+brain that take snap decision by passing many of resistance.
+
 "]])
 
 (defn cognitive-bias-root []
@@ -83,6 +86,7 @@ explained [here](https://en.wikipedia.org/wiki/Nudge_theory).
            "Remember to check your diet and to exercise from time to
                     time."
            "Exercise is more effective when done in team!"
+           "Sleeping is extremely beneficial to the brain and the memory."
            "#FakeMed is a real societal issue and became the most
                     likely recruitment channel for cults." ])
          :status (rand-nth [:warning :success :error])}])
