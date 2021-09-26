@@ -75,14 +75,12 @@
       [:> mui-grid {:item true :xs 12}]
       [:> mui-grid {:item true :xs 10 :sm 8 :lg 4}
        [center
-        [:<>
-         [:img
-          {:src "img/monkey.webp"
-           :style {:width         "100%"
-                   :display       :flex
-                   :aspect-ratio  "1 / 1"
-                   :border-radius "100%"}}]
-         #_[questions]]]]
+        [:img
+         {:src "img/monkey.webp"
+          :style {:width         "100%"
+                  :display       :flex
+                  :aspect-ratio  "1 / 1"
+                  :border-radius "100%"}}]]]
       #_[:> mui-grid {:item true :xs 12 :sm 4 :lg 8}]
       [:> mui-grid {:container true :item true :xs 12}
        [:> mui-grid {:item true :xs 4}
