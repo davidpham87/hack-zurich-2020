@@ -1,6 +1,7 @@
 (ns app.zetetic.tools
   (:require
    ["@material-ui/core/Fade" :default mui-fade]
+   ["@material-ui/core/Link" :default mui-link]
    ["@material-ui/core/Tooltip" :default mui-tooltip]
    ["@material-ui/core/Typography" :default mui-typography]
    [app.components.mui-utils :refer (markdown)]
@@ -118,6 +119,26 @@
       [:a {:href "https://www.cochrane.org/"} "Cochrane"]
       " that conduct meta analysis (analysis of multiple papers) in order to make an objective opinion."]}}])
 
+(defn fallacies []
+  [:<>
+   [tcm/card
+    {:square true :elevation 2}
+    {:header {:title "Naming is already half of the battle."}
+     :content
+     {:children
+      [:> mui-typography
+       "The ability to name and identify the nature of the argument of your
+      opponent improves your ability to answer or maybe find his central
+      thesis. Sometimes, one can also just give up. This link is probably your
+      best ally "
+       [:> mui-link {:src "https://www.informationisbeautiful.net/visualizations/rhetological-fallacies/"}
+        "Information Is Beautiful "]
+       ", until we create NLP algorithm that automatically classify the types of
+      arguments."]}}]
+   [:iframe {:src "https://www.informationisbeautiful.net/visualizations/rhetological-fallacies/"
+             :height 560
+             :width "100%"}]])
+
 (defn tools-root []
   (let [tab (rf/subscribe [::tct/tab-global :tools])]
     (fn []
@@ -126,7 +147,7 @@
        (case @tab
          :graham-target [graham-target {:width 350 :height 350}]
          :medecine [medecine]
-         :fallacies [:div "Fallacies TODO"]
+         :fallacies [fallacies]
          [section
           {}
           [markdown "make forms about cible de graham, fallacies, potential bias, games"]])])))
