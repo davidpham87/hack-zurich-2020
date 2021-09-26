@@ -79,7 +79,7 @@
          [:> motion/img
           {:initial {:rotate -10}
            :animate {:rotate 15}
-           :transition {:repeat 100 :repeat-type :reverse
+           :transition {:repeat 100 :repeat-type :mirror
                         :duration 3
                         :type :tween}
            :src "img/monkey.webp"
