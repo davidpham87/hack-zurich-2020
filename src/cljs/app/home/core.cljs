@@ -76,7 +76,7 @@
       [:> mui-grid {:item true :xs 10 :sm 8 :lg 4}
        [center
         [:<>
-         [:> motion/img
+         [:img
           {:initial {:rotate -10}
            :animate {:rotate 15}
            :transition {:repeat 100 :repeat-type :mirror
