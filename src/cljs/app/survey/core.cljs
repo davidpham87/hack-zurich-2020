@@ -6,6 +6,7 @@
    ["@material-ui/core/Typography" :default mui-typography]
    [reagent.core :as reagent]
    [app.components.mui-utils :refer (card card-header)]
+   [transparency.components.motion :as motion]
    [transparency.components.reitit :as tcr]
    [re-frame.core :as rf]))
 
@@ -42,9 +43,13 @@
                 [:div "Tell " [:b "Neo "] "about your last call"]
                 [:div {:style {:width "100%" :display :grid :place-content :center
                                :padding-top "1em"}}
-                 [:img {:src "img/3600_4_01.webp"
-                        :style {:width 250
-                                :border-radius "100%"}}]]])}]]
+                 [:> motion/img
+                  {:animate {:rotate 15}
+                   :initial {:rotate -15}
+                   :transition {:duration 1.5 :repeat 100 :repeat-type :mirror :type :tween}
+                   :src "img/3600_4_01.webp"
+                   :style {:width 250
+                           :border-radius "100%"}}]]])}]]
     [:> mui-grid {:item true :xs 12 :md 8}
      [card {:header {:title "How was the mood of the call overall?"
                      :subheader "Did you spend a good time?"}

@@ -5,17 +5,43 @@
    ["@material-ui/core/Grid" :default mui-grid]
    ["@material-ui/core/Typography" :default mui-typography]
    ["@material-ui/icons/Dashboard" :default ic-dashboard]
+   ["@material-ui/icons/Help" :default ic-help]
+   ["@material-ui/icons/Star" :default ic-star]
    ["@material-ui/icons/NotListedLocation" :default ic-not-listed-location]
    ["@material-ui/icons/Person" :default ic-person]
    [re-frame.core :as rf]
    [reagent.core :as reagent]
-   [transparency.components.screen-size :as tcs]
    [transparency.components.colors :as colors]
-   [transparency.components.reitit :as tcr]))
+   [transparency.components.motion :as motion]
+   [transparency.components.reitit :as tcr]
+   [transparency.components.screen-size :as tcs]))
 
 (defn center [x]
   [:div {:style {:display :flex :justify-content :center}}
    x])
+
+(defn questions []
+  [:<>
+   [:> motion/div {:initial {:x -50 :y 50}
+                   :animate {:x 50 :y 50 :rotate 360}
+                   :transition {:repeat 100 :duration 2 :repeat-type :mirror}
+                   :style {:position :absolute
+                           :color (colors/colors-rgb :citrin)}}
+    [:> ic-help]]
+   [:> motion/div {:initial {:x 50 :y 30}
+                   :animate {:x -50 :y 30 :rotate 360}
+                   :transition {:repeat 100 :duration 2 :repeat-type :reverse}
+                   :style {:position :absolute
+                           :color (colors/colors-rgb :citrin)}}
+    [:> ic-help]]
+
+   [:> motion/div {:animate {:x 50 :y 75 :rotate 360}
+                   :initial {:x -50 :y 100}
+                   :transition {:repeat 100 :duration 2 :repeat-type :reverse}
+                   :style {:position :absolute :color (colors/colors-rgb :citrin)}}
+    [:> ic-star]]
+   ]
+  )
 
 (defn root []
   (let [screen-size @(rf/subscribe [::tcs/screen-size])]
@@ -49,10 +75,19 @@
       [:> mui-grid {:item true :xs 12}]
       [:> mui-grid {:item true :xs 10 :sm 8 :lg 4}
        [center
-        [:img {:src "img/monkey.webp" :style {:width         "100%"
-                                              :display       :flex
-                                              :aspect-ratio  "1 / 1"
-                                              :border-radius "100%"}}]]]
+        [:<>
+         [:> motion/img
+          {:initial {:rotate -10}
+           :animate {:rotate 15}
+           :transition {:repeat 100 :repeat-type :reverse
+                        :duration 3
+                        :type :tween}
+           :src "img/monkey.webp"
+           :style {:width         "100%"
+                   :display       :flex
+                   :aspect-ratio  "1 / 1"
+                   :border-radius "100%"}}]
+         [questions]]]]
       #_[:> mui-grid {:item true :xs 12 :sm 4 :lg 8}]
       [:> mui-grid {:container true :item true :xs 12}
        [:> mui-grid {:item true :xs 4}

@@ -9,6 +9,7 @@
    [app.components.colors :as colors]
    [app.components.mui-utils :refer (card left-right)]
    [reagent.core :as reagent]
+   [transparency.components.motion :as motion]
    [transparency.components.charts.indicator
     :refer (indicator-chart score->color)]
    [transparency.components.charts.line :refer (line-chart-raw)]
@@ -95,8 +96,12 @@
       {:children
        [:> mui-grid {:container true :justify-content :center}
         [:> mui-grid {:item true :xs 6 :lg 4}
-         [:img {:src "img/3600_3_10.webp"
-                :style {:width "100%" :border-radius "100%"}}]]]}}]]
+         [:> motion/img
+          {:animate {:rotate 5}
+           :initial {:rotate -5}
+           :transition {:repeat 10 :type :tween :repeat-type :mirror}
+           :src "img/3600_3_10.webp"
+           :style {:width "100%" :border-radius "100%"}}]]]}}]]
    [:> mui-grid {:item true :xs 12 :md 12 :lg 4}
     [summary-card]]
    [:> mui-grid {:item true :xs 12 :lg 8}
