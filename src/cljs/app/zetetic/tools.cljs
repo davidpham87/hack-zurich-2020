@@ -4,7 +4,7 @@
    ["@material-ui/core/Tooltip" :default mui-tooltip]
    ["@material-ui/core/Typography" :default mui-typography]
    [app.components.mui-utils :refer (markdown)]
-   [app.zetetic.common :refer (section title ->youtube-video)]
+   [app.zetetic.common :refer (section ->youtube-video)]
    [re-frame.core :as rf]
    [reagent.core :as reagent]
    [transparency.components.colors :as colors]
@@ -126,7 +126,7 @@
        (case @tab
          :graham-target [graham-target {:width 350 :height 350}]
          :medecine [medecine]
-         :fallacies [:div "Hello Fallacies"]
+         :fallacies [:div "Fallacies TODO"]
          [section
           {}
           [markdown "make forms about cible de graham, fallacies, potential bias, games"]])])))

@@ -57,6 +57,7 @@
 - John Oliver - [Last Week Tonight](https://www.youtube.com/user/LastWeekTonight)
 - Thomas C. Durand - [La Tronche En Bias](https://www.youtube.com/user/troncheenbiais)
 - Nathan Uyttendaele - [Chat Sceptique](https://www.youtube.com/channel/UCOuIgj0CYCXCvjWywjDbauw)
+- Buster Benson [Better Humans](https://betterhumans.pub/cognitive-bias-cheat-sheet-55a472476b18)
 - Pictures from [catalyststuff](https://www.freepik.com/vectors/logo)
 "]]}}])
 
@@ -174,7 +175,7 @@
           [:> mui-css-baseline]
           [:main {:style {:flex-grow           1
                           :padding             (case @screen-size :xs 0 20)
-                          :overflow            :auto
+                          :overflow            :hidden
                           :min-height          "100vh"
                           :background-color    (colors/colors-rgb :graphite)
                           :z-index             0

@@ -95,7 +95,7 @@ Now what is interesting is whether you added \"apple\" to the list as it was a c
        ^{:key @tab}
        (case @tab
          :cognitive-bias [cognitive-bias]
-         :fallacies [:div "Hello Fallacies"]
+         :fallacies [:div "TODO Fallacies"]
          [section
           {}
           [title "Relive some historical experiment"]

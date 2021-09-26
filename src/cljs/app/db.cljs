@@ -54,8 +54,10 @@
      :pipelines-data (d/empty-db schema)
      :xhrio          (d/empty-db {:request/id {:db/unique :db.unique/value}})}
 
-    :ui-states {:transparency.components.drawer/open? false
-                :transparency.components.tabs/tab {[:global :assessment] :cognitive-bias}}
+    :ui-states
+    {:transparency.components.drawer/open? false
+     :transparency.components.tabs/tab {[:global :assessment] :cognitive-bias
+                                        [:global :tools] :graham-target}}
 
     :user-input
     {:selected-user   "Hackathon"

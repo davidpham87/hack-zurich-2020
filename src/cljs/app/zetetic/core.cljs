@@ -2,7 +2,9 @@
   (:require
    [app.components.mui-utils :refer (markdown)]
    [app.zetetic.assessment]
+   [app.zetetic.cognitive-bias]
    [app.zetetic.common :refer (section title ->youtube-video)]
+   [app.zetetic.fallacies]
    [app.zetetic.tools]
    [cuerdas.core :as cuerdas]
    [re-frame.core :as rf]
@@ -84,9 +86,7 @@ Most will live without even noticing their brain will deceive them with
 cognitive biases. These blind spots are the most dangerous as they allowed the
 human species to survive and evolve in a world where most events had a single
 cause. But most of our challenges nowadays are polycausal.
-"
-
-        ]]]
+"]]]
      [tcl/parallax {:image "img/dan-dimmock-3mt71MKGjQ0-unsplash.webp"
                     :style {:margin (when-not (#{:xs} screen-size) -20)
                             :padding 40}}
@@ -95,8 +95,11 @@ cause. But most of our challenges nowadays are polycausal.
        [title "Rhetological Fallacies"]
        [markdown "
 
-Fallacious argumentation are commonly accepted and the skill to detect them is not taught at school anymore.
-
+Fallacious argumentation are commonly accepted and the skill to detect them is
+not taught at school anymore.  The appeal to authority, the appeal to
+popularity and the appeal of nature are regularly used by politicians,
+advertisers and alternative medicine to convinced their audience of their
+products, but the merit of the arguments are never discussed.
 "]]]
      [tcl/parallax {:image "img/janko-ferlic-sfL_QOnmy00-unsplash.webp"
                     :style {:margin (when-not (#{:xs} screen-size) -20)
@@ -124,15 +127,10 @@ Fallacious argumentation are commonly accepted and the skill to detect them is n
            [->youtube-video "https://www.youtube.com/embed/7VG_s2PCH_c"]
            [->youtube-video "https://www.youtube.com/embed/gPHgRp70H8o"]])]]]]))
 
-(defn fallacies-root []
-  [:a
-   {:href "https://www.informationisbeautiful.net/visualizations/rhetological-fallacies/"}
-   "www.informationisbeautiful.net"])
+(defn fallacies-root [] [app.zetetic.fallacies/fallacies-root])
 
 (defn cognitive-bias-root []
-  [:a
-   {:href "https://www.informationisbeautiful.net/visualizations/rhetological-fallacies/"}
-   "www.informationisbeautiful.net"])
+  [app.zetetic.cognitive-bias/cognitive-bias-root])
 
 (defn guardrails-root []
   [section
