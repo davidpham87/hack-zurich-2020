@@ -220,8 +220,7 @@ when in doubt.
   work, we would basically need to rethink and update the entirety of physics,
   biology and chemistry, meaning it is unlikely that homeopathy works.
 
-"
-         ]]])))
+"]]])))
 
 (defn assessment-root []
   [app.zetetic.assessment/assessment-root])
